@@ -1,16 +1,14 @@
-import axios from 'axios';
-
-export const JSONparser = (arrayString) => {
-    return JSON.parse(JSON.parse(arrayString));
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
 };
 
-export const TeXparser = async (stdString) => {
-    let result = await axios.get("https://www.wolframcloud.com/objects/4d6d5550-5b10-4daf-ae17-faed628f04c8",{
-        params: {
-            stdform: stdString,
-        }
-    });
-    return JSON.parse(result.data.Result);
-}
+export const JSONparser = (arrayString) => {
+    var str = arrayString.substring(1,arrayString.length-1);
+    str = str.replaceAll(/\\\\/g,"<->");
+    str = str.replaceAll(/\\/g,"");
+    str = str.replaceAll(/<->/g,"\\\\");
+    return JSON.parse(str);
+};
 
-export default {JSONparser, TeXparser}
+export default {JSONparser};

@@ -105,7 +105,7 @@ class VirtualKeyboard extends Component {
           buttonTheme={[
             {
               class: "hg-red",
-              buttons: "Q W E R T Y q w e r t y"
+              buttons: "Q W R T Y q w r t y"
             },
             {
               class: "hg-highlight",

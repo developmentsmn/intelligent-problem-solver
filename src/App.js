@@ -6,7 +6,8 @@ import logicProof from './libs/wolfram/solver';
 import Page from './components/Page/Page';
 import {TeXparser} from './libs/wolfram/parser';
 import { InlineMath, BlockMath } from 'react-katex'
-import ProblemInput from './components/ProblemInput/index'
+import SolutionStepper from './components/SolutionStepper/SolutionStepper';
+import ProblemSolutionPage from './components/ProblemSolutionPage/ProblemSolutionPage';
 
 class App extends Component {
 
@@ -15,24 +16,6 @@ class App extends Component {
     this.state = {
       displayStr: "",
     }
-  }
-
-  componentDidMount(){
-    this.solve("{{P \\[And] Q, P \\[Implies] (R \\[And] Q), R\\[Implies](S\\[And]T)},{T}}");
-  }
-
-  solve = (problem) =>{
-    logicProof(problem)
-    .then((arr) => {
-      return TeXparser(arr[0][0][0]);
-    })
-    .then((res) => {
-      console.log(res);
-      return this.setState({displayStr:res});
-    })
-    .catch((err) => {
-      console.log(err);
-    })
   }
 
   render() {
@@ -55,10 +38,7 @@ class App extends Component {
               Learn React
             </a>
           </header>
-        <Page>
-          <h1>What's your problem?</h1>
-          <ProblemInput/>
-        </Page>
+        <ProblemSolutionPage/>
       </div>
     );
   }
