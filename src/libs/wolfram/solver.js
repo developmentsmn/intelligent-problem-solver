@@ -2,7 +2,7 @@ import axios from 'axios';
 import { JSONparser } from './parser'
 
 const logicProof = async (problem) => {
-    const result = await axios.get("https://www.wolframcloud.com/objects/2e02a25d-3eaf-4a6a-a772-7c16a8cd0666",{
+    const result = await axios.get("https://www.wolframcloud.com/objects/405cf2ed-d64a-4a43-9a84-9d194517b783",{
         params: {
             problem
         }

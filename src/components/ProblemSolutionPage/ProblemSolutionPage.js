@@ -30,10 +30,10 @@ class ProblemSolutionPage extends Component {
 		const { stepList } = this.state;
 		console.log(stepList);
 		return (
-			<Page>
+			<div>
 				<ProblemInput onSubmit={this.onSubmit}/>
 				<SolutionStepper stepList={stepList}/>
-			</Page>
+			</div>
 		)
 	}
 }

@@ -48,6 +48,7 @@ class VirtualKeyboard extends Component {
   };
 
   onChangeInput = event => {
+		console.log(event);
     let input = event.target.value;
     this.setState(
       {
@@ -86,13 +87,15 @@ class VirtualKeyboard extends Component {
 						'\\neg':'¬',
 						'{Letters}':'Letters',
 						'{Math}':'Math',
-						'{bksp}':'←'
+            '{bksp}':'←',
+            '\\{': '{',
+            '\\}': '}',
           }}
           layout={{
             default: [
 							"A B C D E F {bksp}",
               "\\neg \\land \\lor \\Rightarrow \\Leftrightarrow",
-              "{Letters} ( ) { }",
+              "{Letters} ( ) \\{ \\}",
             ],
             letters: [
               "~ ! @ # $ % ^ & * ( ) _ + {bksp}",
