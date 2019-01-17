@@ -33,6 +33,7 @@ class ProblemSolutionPage extends Component {
 			<div>
 				<ProblemInput onSubmit={this.onSubmit}/>
 				<SolutionStepper stepList={stepList}/>
+				<Page />
 			</div>
 		)
 	}
