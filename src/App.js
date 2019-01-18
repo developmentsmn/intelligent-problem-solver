@@ -8,6 +8,7 @@ import {TeXparser} from './libs/wolfram/parser';
 import { InlineMath, BlockMath } from 'react-katex'
 import SolutionStepper from './components/SolutionStepper/SolutionStepper';
 import ProblemSolutionPage from './components/ProblemSolutionPage/ProblemSolutionPage';
+import ProblemType from './components/ProblemChooser/ProblemType';
 
 class App extends Component {
 
@@ -38,6 +39,7 @@ class App extends Component {
               Learn React
             </a>
           </header>
+        <ProblemType/>
         <ProblemSolutionPage/>
       </div>
     );
