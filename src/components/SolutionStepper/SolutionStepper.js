@@ -1,21 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import { InlineMath } from 'react-katex';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import StepContent from "@material-ui/core/StepContent";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import { InlineMath } from "react-katex";
 
 const styles = theme => ({
   root: {
-    width: '90%',
+    width: "90%",
   },
   stepper: {
-    textAlign: 'left',
+    textAlign: "left",
   },
   button: {
     marginTop: theme.spacing.unit,
@@ -30,42 +30,49 @@ const styles = theme => ({
 });
 
 class VerticalLinearStepper extends React.Component {
-  
   static propTypes = {
     classes: PropTypes.shape().isRequired,
     stepList: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)).isRequired,
   }
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state.steps = new Array(props.stepList.length).fill(0).map(
-      (x,i) => ("Step "+(i+1))
-    )
+      (x, i) => (`Step ${i + 1}`),
+    );
   }
 
   state = {
     activeStep: 0,
   };
- 
+
   /* \{ \{A \Rightarrow (B \Rightarrow C), A \lor \neg D,B,D \}, \{C\} \} */
   getStepContent = (step) => {
     const { stepList } = this.props;
     return (
       <div>
-        <span>Applying <span style={{fontWeight: "bold"}}>{stepList[step][2]}</span> to:</span>
+        <span>
+          Applying
+          <span style={{ fontWeight: "bold" }}>
+            {" "}
+            {stepList[step][2]}
+          </span>
+          {" "}
+          to:
+        </span>
         <ul>
-          {stepList[step][0].map((item, index) => (
-            <li key={index}><InlineMath math={item}/></li>
+          {stepList[step][0].map(item => (
+            <li key={item}><InlineMath math={item} /></li>
           ))}
         </ul>
         <span>We got,</span>
         <ul>
-          {stepList[step][1].map((item, index) => (
-            <li key={index}><InlineMath math={item}/></li>
+          {stepList[step][1].map(item => (
+            <li key={item}><InlineMath math={item} /></li>
           ))}
         </ul>
       </div>
-    )
+    );
   }
 
   handleNext = () => {
@@ -92,11 +99,11 @@ class VerticalLinearStepper extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Stepper classes={{root: classes.stepper}} activeStep={activeStep} orientation="vertical">
+        <Stepper classes={{ root: classes.stepper }} activeStep={activeStep} orientation="vertical">
           {stepList.map((item, index) => {
             return (
-              <Step key={index}>
-                <StepLabel>{"Step " + (index + 1)}</StepLabel>
+              <Step key={item}>
+                <StepLabel>{`Step ${index + 1}`}</StepLabel>
                 <StepContent>
                   {this.getStepContent(index)}
                   <div className={classes.actionsContainer}>
@@ -114,7 +121,7 @@ class VerticalLinearStepper extends React.Component {
                         onClick={this.handleNext}
                         className={classes.button}
                       >
-                        {activeStep === stepList.length - 1 ? 'Finish' : 'Next'}
+                        {activeStep === stepList.length - 1 ? "Finish" : "Next"}
                       </Button>
                     </div>
                   </div>
@@ -137,7 +144,7 @@ class VerticalLinearStepper extends React.Component {
 }
 
 VerticalLinearStepper.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.shape().isRequired,
 };
 
 export default withStyles(styles)(VerticalLinearStepper);
