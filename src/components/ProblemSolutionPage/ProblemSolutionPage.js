@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import style from './ProblemSolutionPage.style';
 import solver from '../../libs/wolfram/solver';
-import Page from '../Page/Page';
 import ProblemInput from '../ProblemInput/index';
 import SolutionStepper from '../SolutionStepper/SolutionStepper';
 
@@ -15,7 +14,6 @@ class ProblemSolutionPage extends Component {
 		}
 	}
 
-	/*\{\{P \land Q, P \Rightarrow (R \land Q), R \Rightarrow (S \land T)\},\{T\}\}*/
 	onSubmit = (problemTeX) => {
 		solver(problemTeX)
 		.then(stepList => {
@@ -33,7 +31,6 @@ class ProblemSolutionPage extends Component {
 			<div>
 				<ProblemInput onSubmit={this.onSubmit}/>
 				<SolutionStepper stepList={stepList}/>
-				<Page />
 			</div>
 		)
 	}
