@@ -1,0 +1,10 @@
+**/.next
+**/.vscode
+node_modules
+**/node_modules
+**/out
+**/build
+**/tmp
+boilerplates
+**/coverage
+**/src/serviceWorker.js
