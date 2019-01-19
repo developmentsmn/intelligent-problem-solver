@@ -1,5 +1,8 @@
-import http from "http";
+const https = require('https');
 
 setInterval(() => {
-  http.get("http://intelligent-problem-solver.herokuapp.com");
-}, 3000000); // every 50 minutes (3000000)
+  https.get("https://intelligent-problem-solver.herokuapp.com", 
+    () => {
+      console.log("Ping");
+    })
+}, 60000); // every 50 minutes (3000000)

@@ -2,6 +2,7 @@
 **/.vscode
 node_modules
 **/node_modules
+**/services
 **/out
 **/build
 **/tmp
