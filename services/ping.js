@@ -5,4 +5,4 @@ setInterval(() => {
     () => {
       console.log("Ping");
     })
-}, 60000); // every 50 minutes (3000000)
+}, 3000000); // every 50 minutes (3000000)
