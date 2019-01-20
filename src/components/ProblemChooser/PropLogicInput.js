@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexDirection:'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     minWidth: 300,
-    width: '100%',
-    justifyContent: 'space-evenly'
-  },
+    width: '100%'},
+
   image: {
     position: 'relative',
     height: 200,
@@ -22,13 +24,10 @@ const styles = theme => ({
     '&:hover, &$focusVisible': {
       zIndex: 1,
       '& $imageBackdrop': {
-        opacity: 0.15,
+        opacity: 0.25,
       },
       '& $imageMarked': {
-        opacity: 0,
-      },
-      '& $imageTitle': {
-        border: '4px solid currentColor',
+        opacity: 1,
       },
     },
   },
@@ -60,13 +59,12 @@ const styles = theme => ({
     top: 0,
     bottom: 0,
     backgroundColor: theme.palette.common.black,
-    opacity: 0.4,
+    opacity: 0,
     transition: theme.transitions.create('opacity'),
   },
   imageTitle: {
-    position: 'relative',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 4}px ${theme.spacing.unit + 6}px`,
   },
+
   imageMarked: {
     height: 3,
     width: 18,
@@ -75,24 +73,20 @@ const styles = theme => ({
     bottom: -2,
     left: 'calc(50% - 9px)',
     transition: theme.transitions.create('opacity'),
+    
   },
 });
 
 const images = [
   {
-    url: 'http://www.free-icons-download.net/images/implies-83546.png',
-    title: 'Propositional Logic',
-    width: '30%',
+    url: 'proof.jpg',
+    title: '',
+    width: '95%',
   },
   {
-    url: 'https://banner2.kisspng.com/20180519/fjl/kisspng-mathematics-subset-symbol-binary-relation-sign-5affebfdf03a69.231163551526721533984.jpg',
-    title: 'Binary Relations',
-    width: '30%',
-  },
-  {
-    url: '/static/images/grid-list/camera.jpg',
-    title: 'Other',
-    width: '30%',
+    url: 'simp.jpg',
+    title: '',
+    width: '95%',
   },
 ];
 
@@ -102,15 +96,17 @@ function ButtonBases(props) {
   return (
     <div className={classes.root}>
       {images.map( (image,index) => (
-        <ButtonBase
+        <ButtonBase variant = "contained"
           focusRipple
           key={image.title}
           className={classes.image}
           focusVisibleClassName={classes.focusVisible}
           style={{
             width: image.width,
+            marginTop: '10px', 
+            boxShadow: '3px 3px 2px grey',
           }}
-          onClick={() => props.handler(index)}
+          onClick={() => props.handlerType(index)}>
         >
           <span
             className={classes.imageSrc}
@@ -120,19 +116,9 @@ function ButtonBases(props) {
           />
           <span className={classes.imageBackdrop} />
           <span className={classes.imageButton}>
-            <Typography
-              component="span"
-              variant="subtitle1"
-              color="inherit"
-              className={classes.imageTitle}
-            >
-              {image.title}
-              <span className={classes.imageMarked} />
-            </Typography>
           </span>
         </ButtonBase>
-      ))
-      }
+      ))}
     </div>
   );
 }
@@ -142,3 +128,42 @@ ButtonBases.propTypes = {
 };
 
 export default withStyles(styles)(ButtonBases);
+
+
+
+
+
+
+/*
+
+import React from 'react';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+
+class PropLogicInput extends React.Component {
+
+
+    render () {
+        return (
+            <Paper style={this.props.pstyles.Paper}>
+                <Button 
+                    style={
+                            {
+                                width: '50%', 
+                                height:'50%'
+                            }
+                        } 
+                    variant="contained" 
+                    onClick={() => this.props.handlerType(0)}>
+                        Simplification
+                </Button>
+                <Button variant="contained" onClick={() => this.props.handlerType(1)}>Proof</Button>
+            </Paper>
+        )
+    }
+}
+
+export default PropLogicInput;
+
+*/
+
