@@ -25,8 +25,8 @@ class ProblemSolutionPage extends Component {
       const { stepList } = this.state;
       return (
         <div>
-          
-          {/*<HorizontalLinearStepper />*/}
+
+          {/* <HorizontalLinearStepper /> */}
 
           <ProblemInput onSubmit={this.onSubmit} />
           <SolutionStepper stepList={stepList} />
