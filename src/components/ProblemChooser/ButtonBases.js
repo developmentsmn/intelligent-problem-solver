@@ -138,7 +138,12 @@ function ButtonBases(props) {
 }
 
 ButtonBases.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.shape().isRequired,
+  handler: PropTypes.func,
+};
+
+ButtonBases.defaultProps = {
+  handler: () => {},
 };
 
 export default withStyles(styles)(ButtonBases);

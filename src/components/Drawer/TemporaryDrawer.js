@@ -36,6 +36,9 @@ class TemporaryDrawer extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const {
+      left, top, bottom, right,
+    } = this.state;
 
     const sideList = (
       <div className={classes.list}>
@@ -87,7 +90,7 @@ class TemporaryDrawer extends React.Component {
         <Button onClick={this.toggleDrawer("right", true)}>Open Right</Button>
         <Button onClick={this.toggleDrawer("top", true)}>Open Top</Button>
         <Button onClick={this.toggleDrawer("bottom", true)}>Open Bottom</Button>
-        <Drawer open={this.state.left} onClose={this.toggleDrawer("left", false)}>
+        <Drawer open={left} onClose={this.toggleDrawer("left", false)}>
           <div
             tabIndex={0}
             role="button"
@@ -97,7 +100,7 @@ class TemporaryDrawer extends React.Component {
             {sideList}
           </div>
         </Drawer>
-        <Drawer anchor="top" open={this.state.top} onClose={this.toggleDrawer("top", false)}>
+        <Drawer anchor="top" open={top} onClose={this.toggleDrawer("top", false)}>
           <div
             tabIndex={0}
             role="button"
@@ -109,7 +112,7 @@ class TemporaryDrawer extends React.Component {
         </Drawer>
         <Drawer
           anchor="bottom"
-          open={this.state.bottom}
+          open={bottom}
           onClose={this.toggleDrawer("bottom", false)}
         >
           <div
@@ -121,7 +124,7 @@ class TemporaryDrawer extends React.Component {
             {fullList}
           </div>
         </Drawer>
-        <Drawer anchor="right" open={this.state.right} onClose={this.toggleDrawer("right", false)}>
+        <Drawer anchor="right" open={right} onClose={this.toggleDrawer("right", false)}>
           <div
             tabIndex={0}
             role="button"
@@ -137,7 +140,7 @@ class TemporaryDrawer extends React.Component {
 }
 
 TemporaryDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.shape().isRequired,
 };
 
 export default withStyles(styles)(TemporaryDrawer);

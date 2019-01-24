@@ -84,19 +84,17 @@ class HorizontalLinearStepper extends React.Component {
   };
 
   handleBack = () => {
-    // let temp = this.state.prevContent[0];
-    // temp.splice(0, 1);
+    const { prevContent } = this.state;
 
-    // console.log(this.state.prevContent.length);
-
-    if (this.state.prevContent.length === 1) {
+    if (prevContent.length === 1) {
       this.setState(state => ({
         activeStep: state.activeStep - 1,
-        content: <Grid container sm>
+        content: 
+        <Grid container sm>
           <Paper style={pstyles.Paper}>
             <ButtonBases handler={this.handler} />
           </Paper>
-                 </Grid>,
+        </Grid>,
         prevContent: [],
       }));
     } else {

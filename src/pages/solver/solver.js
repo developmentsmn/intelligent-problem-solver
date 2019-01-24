@@ -6,7 +6,7 @@ class LogicProof extends Component {
   render() {
     return (
       <Page>
-        <HorizontalLinearStepper/>
+        <HorizontalLinearStepper />
       </Page>
     );
   }
