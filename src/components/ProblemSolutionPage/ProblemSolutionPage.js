@@ -18,9 +18,6 @@ class ProblemSolutionPage extends Component {
       solver(problemTeX)
         .then((stepList) => {
           this.setState({ stepList });
-        })
-        .catch((error) => {
-          console.log(error);
         });
     }
 
