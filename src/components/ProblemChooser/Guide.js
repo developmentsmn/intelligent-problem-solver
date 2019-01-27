@@ -18,12 +18,14 @@ import ProblemTextField from '../ProblemInput/ProblemTextField/ProblemTextField'
 
 
 const pstyles = {
-  Paper: {padding: 20, marginTop: 10, marginBottom: 10, height: 500, width: '50%', marginLeft: 'auto', marginRight: 'auto' }
-}
+  Paper: {
+    padding: 20, marginTop: 10, marginBottom: 10, height: 500, width: "50%", marginLeft: "auto", marginRight: "auto",
+  },
+};
 
 const styles = theme => ({
   root: {
-    width: '90%',
+    width: "90%",
   },
   button: {
     marginRight: theme.spacing.unit,
@@ -35,19 +37,19 @@ const styles = theme => ({
 });
 
 function getSteps() {
-  return ['Choose Problem Topic', 'Choose Problem Solution Type', 'Enter your problem!'];
+  return ["Choose Problem Topic", "Choose Problem Solution Type", "Enter your problem!"];
 }
 
 function getStepContent(step) {
   switch (step) {
-    case 0:
-      return 'Choose Problem Topic...';
-    case 1:
-      return 'Choose Problem Solution Type';
-    case 2:
-      return 'This is the bit I really care about!';
-    default:
-      return 'Unknown step';
+  case 0:
+    return "Choose Problem Topic...";
+  case 1:
+    return "Choose Problem Solution Type";
+  case 2:
+    return "This is the bit I really care about!";
+  default:
+    return "Unknown step";
   }
 }
 
@@ -71,7 +73,7 @@ class Guide extends React.Component {
 
     this.handler = this.handler.bind(this);
   }
-  
+
 
   isStepOptional = step => step === -1;
 
@@ -89,13 +91,9 @@ class Guide extends React.Component {
   };
 
   handleBack = () => {
-    //let temp = this.state.prevContent[0];
-    //temp.splice(0, 1);
+    const { prevContent } = this.state;
 
-    //console.log(this.state.prevContent.length);
-
-    if(this.state.prevContent.length === 1)
-    {
+    if (prevContent.length === 1) {
       this.setState(state => ({
         activeStep: state.activeStep - 1,
         content: <Grid container sm>
@@ -106,9 +104,7 @@ class Guide extends React.Component {
         prevContent: [],
         textFieldDefault: this.state.textFieldDefault.substring(0, this.state.textFieldDefault.lastIndexOf("#"))
       }));
-    }
-    else
-    {
+    } else {
       this.setState(state => ({
         activeStep: state.activeStep - 1,
         content: this.state.prevContent[0],
@@ -116,7 +112,6 @@ class Guide extends React.Component {
         textFieldDefault: this.state.textFieldDefault.substring(0, this.state.textFieldDefault.lastIndexOf("#"))
       }));
     }
-    
   };
 
   handleSkip = () => {
@@ -127,7 +122,7 @@ class Guide extends React.Component {
       throw new Error("You can't skip a step that isn't optional.");
     }
 
-    this.setState(state => {
+    this.setState((state) => {
       const skipped = new Set(state.skipped.values());
       skipped.add(activeStep);
       return {
@@ -157,7 +152,7 @@ class Guide extends React.Component {
     if(index === 1)
     {
       this.setState({
-        activeStep: this.state.activeStep+1,
+        activeStep: this.state.activeStep + 1,
         prevContent: temp,
         content: <h1>SIMPLIFICATION</h1>,
         textFieldDefault: "#Propositional Logic #Simplification"
@@ -167,7 +162,7 @@ class Guide extends React.Component {
     else if(index === 0)
     {
       this.setState({
-        activeStep: this.state.activeStep+1,
+        activeStep: this.state.activeStep + 1,
         prevContent: temp,
         content: 
         <div>
@@ -177,13 +172,10 @@ class Guide extends React.Component {
         textFieldDefault: "#Propositional Logic #Prove" + " " + hyp + " " + goal
       })
     }
-    
-
   };
 
   handler = (value) => {
-
-    let temp = this.state.prevContent;
+    const temp = this.state.prevContent;
     temp.splice(0, 0, this.state.content);
 
     if(value === 0)
@@ -208,7 +200,7 @@ class Guide extends React.Component {
         content: <h1>BINARY RELATION CHOSEN</h1>,
         textFieldDefault: '#Binary Relation'
       });
-    }  
+    }
   };
   
   render() {
@@ -216,20 +208,20 @@ class Guide extends React.Component {
     const steps = getSteps();
     const { activeStep } = this.state;
 
-    //let content;
+    // let content;
 
     /*
     if(this.state.activeStep === 0)
     {
-      
+
       content = <Grid container sm>
       <Paper style={pstyles.Paper}>
         <ButtonBases setSlide={i => this.setState({activeStep: activeStep + 1, slide: i})}
         />
       </Paper>
     </Grid>
-      
-     
+
+
     }
     else if(this.state.activeStep === 1)
     {
@@ -337,7 +329,7 @@ class Guide extends React.Component {
 
                 
                 {this.isStepOptional(activeStep) && (
-                  
+
                   <Button
                     variant="contained"
                     color="primary"
@@ -347,15 +339,6 @@ class Guide extends React.Component {
                     Skip
                   </Button>
                 )}
-                {/*
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={this.handleNext}
-                  className={classes.button}
-                >
-                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                </Button>*/}
               </div>
             </div>
           )}

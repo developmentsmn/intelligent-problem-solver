@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import "katex/dist/katex.min.css";
-import ProblemSolutionPage from "./components/ProblemSolutionPage/ProblemSolutionPage";
-import Guide from "./components/ProblemChooser/Guide";
-import Carousel from "./components/ProblemChooser/Carousel";
+import Guide from "./components/ProblemChooser/Guide"
+import Main from "./pages/Main";
 
 class App extends Component {
   render() {
@@ -18,6 +17,9 @@ class App extends Component {
           <Guide />
         </div>
 
+        {/* <Navbar /> */}
+        {/* <Sidebar /> */}
+        <Main />
       </div>
     );
   }

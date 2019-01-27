@@ -18,9 +18,6 @@ class ProblemSolutionPage extends Component {
       solver(problemTeX)
         .then((stepList) => {
           this.setState({ stepList });
-        })
-        .catch((error) => {
-          console.log(error);
         });
     }
 
@@ -28,8 +25,8 @@ class ProblemSolutionPage extends Component {
       const { stepList } = this.state;
       return (
         <div>
-          
-          {/*<HorizontalLinearStepper />*/}
+
+          {/* <HorizontalLinearStepper /> */}
 
           <ProblemInput input={this.props.input} onSubmit={this.onSubmit} />
           <SolutionStepper stepList={stepList} />
