@@ -32,6 +32,7 @@ class ProblemTextField extends Component {
           rows="3"
           value={this.state.textFieldDefault}
           onChange={(e) => {
+            onChange(e);
             this.setState({textFieldDefault: e.target.value});
           }}
           className={classes.textField}

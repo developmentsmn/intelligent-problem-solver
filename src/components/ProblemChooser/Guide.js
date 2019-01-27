@@ -15,6 +15,7 @@ import ProblemSolutionPage from '../ProblemSolutionPage/ProblemSolutionPage';
 import ProblemInput from '../ProblemInput/index';
 import solver from "../../libs/wolfram/solver";
 import ProblemTextField from '../ProblemInput/ProblemTextField/ProblemTextField';
+import _ from 'lodash';
 
 
 const pstyles = {
@@ -143,7 +144,7 @@ class Guide extends React.Component {
   }
   
   handlerType = (data) => {
-    let temp = this.state.prevContent;
+    let temp = _.cloneDeep(this.state.prevContent);
     temp.splice(0, 0, this.state.content);
 
     const { index, hyp, goal } = data;
@@ -161,16 +162,18 @@ class Guide extends React.Component {
     //proof === 0
     else if(index === 0)
     {
+      this.props.changeHandler();
+      
+      /*
       this.setState({
         activeStep: this.state.activeStep + 1,
         prevContent: temp,
         content: 
         <div>
-          {/*<Button color="secondary" variant="contained" onClick={this.handleBack}>Back</Button>*/}
           <ProblemSolutionPage input={"#Propositional Logic #Prove #{" + hyp + " " + goal + "}"}/>
         </div>,
         textFieldDefault: "#Propositional Logic #Prove" + " " + hyp + " " + goal
-      })
+      })*/
     }
   };
 

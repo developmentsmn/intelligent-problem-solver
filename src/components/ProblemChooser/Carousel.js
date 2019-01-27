@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
+import ProblemSolutionPage from '../ProblemSolutionPage/ProblemSolutionPage';
+import Guide from "./Guide";
 
 
 
@@ -56,14 +58,14 @@ class Carousel extends React.Component {
 
   render() {
 
-    const { slide1, slide2 } = this.props;
-
     const tutorialSteps = [
         {
-          content: slide1
+          content: <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Guide changeHandler={this.handleNext}/>
+        </div>
         },
         {
-          content: slide2
+          content: <ProblemSolutionPage input="#Propositional Logic #Prove #Enter a problem"/>
         },
       ];
 
@@ -87,6 +89,33 @@ class Carousel extends React.Component {
             </div>
           ))}
         </SwipeableViews>
+
+        <Button 
+          style={{ 
+            position: 'absolute',
+            right: '90%',
+            top: '50%',
+            transform: 'translate(-50%,-50%)',
+            transform: 'translate3d(-50%,-50%,0)'}}
+          onClick={this.handleBack} 
+          disabled={activeStep === 0}
+          >
+          {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+        </Button>
+
+        <Button 
+          style={{ 
+            position: 'absolute',
+            left: '90%',
+            top: '50%',
+            transform: 'translate(-50%,-50%)',
+            transform: 'translate3d(-50%,-50%,0)'}}
+          onClick={this.handleNext} 
+          disabled={activeStep === maxSteps - 1}
+          >
+          {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+        </Button>
+
         <MobileStepper
           steps={maxSteps}
           position="static"

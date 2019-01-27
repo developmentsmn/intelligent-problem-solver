@@ -59,6 +59,7 @@ class VirtualKeyboard extends Component {
   render() {
     const { classes, onSubmit } = this.props;
     const { input, layoutName } = this.state;
+    
     return (
       <div>
         <ProblemTextField
@@ -70,7 +71,8 @@ class VirtualKeyboard extends Component {
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() => { onSubmit(input); }}
+          onClick={() => { 
+            onSubmit(input); }}
         >
           Submit
 
