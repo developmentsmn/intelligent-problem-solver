@@ -4,7 +4,7 @@ import style from "./ProblemSolutionPage.style";
 import solver from "../../libs/wolfram/solver";
 import ProblemInput from "../ProblemInput/index";
 import SolutionStepper from "../SolutionStepper/SolutionStepper";
-import HorizontalLinearStepper from "../ProblemChooser/HorizontalLinearStepper";
+import Guide from "../ProblemChooser/Guide";
 
 class ProblemSolutionPage extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class ProblemSolutionPage extends Component {
           
           {/*<HorizontalLinearStepper />*/}
 
-          <ProblemInput onSubmit={this.onSubmit} />
+          <ProblemInput input={this.props.input} onSubmit={this.onSubmit} />
           <SolutionStepper stepList={stepList} />
         </div>
       );

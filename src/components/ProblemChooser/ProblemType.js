@@ -1,11 +1,11 @@
 import React from 'react';
-import HorizontalLinearStepper from './HorizontalLinearStepper';
+import Guide from './Guide';
 
 class ProblemType extends React.Component {
 
     render() {
         return (
-            <HorizontalLinearStepper/>
+            <Guide />
         )
     }
 }

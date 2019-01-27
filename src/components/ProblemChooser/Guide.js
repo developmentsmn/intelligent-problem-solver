@@ -8,9 +8,14 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
 import ButtonBases from './ButtonBases';
 import PropLogicInput from './PropLogicInput';
 import ProblemSolutionPage from '../ProblemSolutionPage/ProblemSolutionPage';
+import ProblemInput from '../ProblemInput/index';
+import solver from "../../libs/wolfram/solver";
+import ProblemTextField from '../ProblemInput/ProblemTextField/ProblemTextField';
+
 
 const pstyles = {
   Paper: {padding: 20, marginTop: 10, marginBottom: 10, height: 500, width: '50%', marginLeft: 'auto', marginRight: 'auto' }
@@ -46,7 +51,7 @@ function getStepContent(step) {
   }
 }
 
-class HorizontalLinearStepper extends React.Component {
+class Guide extends React.Component {
   constructor(props) {
     super(props);
 
@@ -59,7 +64,9 @@ class HorizontalLinearStepper extends React.Component {
           <ButtonBases handler={this.handler}/>
         </Paper>
       </Grid>,
-      prevContent: []
+      prevContent: [],
+      textFieldDefault: "",
+      value: ''
     };
 
     this.handler = this.handler.bind(this);
@@ -96,7 +103,8 @@ class HorizontalLinearStepper extends React.Component {
           <ButtonBases handler={this.handler}/>
         </Paper>
       </Grid>,
-        prevContent: []
+        prevContent: [],
+        textFieldDefault: this.state.textFieldDefault.substring(0, this.state.textFieldDefault.lastIndexOf("#"))
       }));
     }
     else
@@ -104,7 +112,8 @@ class HorizontalLinearStepper extends React.Component {
       this.setState(state => ({
         activeStep: state.activeStep - 1,
         content: this.state.prevContent[0],
-        prevContent: this.state.prevContent.splice(0, 1)
+        prevContent: this.state.prevContent.splice(0, 1),
+        textFieldDefault: this.state.textFieldDefault.substring(0, this.state.textFieldDefault.lastIndexOf("#"))
       }));
     }
     
@@ -138,31 +147,34 @@ class HorizontalLinearStepper extends React.Component {
     return this.state.skipped.has(step);
   }
   
-  handlerType = (value) => {
-    //0 means simplification
-    //1 means proof
+  handlerType = (data) => {
     let temp = this.state.prevContent;
     temp.splice(0, 0, this.state.content);
-    //simplification
-    if(value === 1)
+
+    const { index, hyp, goal } = data;
+
+    //simplification === 1
+    if(index === 1)
     {
       this.setState({
         activeStep: this.state.activeStep+1,
         prevContent: temp,
-        content: <h1>SIMPLIFICATION</h1>
+        content: <h1>SIMPLIFICATION</h1>,
+        textFieldDefault: "#Propositional Logic #Simplification"
       })
     }
-    //proof
-    else if(value === 0)
+    //proof === 0
+    else if(index === 0)
     {
       this.setState({
         activeStep: this.state.activeStep+1,
         prevContent: temp,
         content: 
         <div>
-          <Button color="secondary" variant="contained" onClick={this.handleBack}>Back</Button>
-          <ProblemSolutionPage />
-        </div>
+          {/*<Button color="secondary" variant="contained" onClick={this.handleBack}>Back</Button>*/}
+          <ProblemSolutionPage input={"#Propositional Logic #Prove #{" + hyp + " " + goal + "}"}/>
+        </div>,
+        textFieldDefault: "#Propositional Logic #Prove" + " " + hyp + " " + goal
       })
     }
     
@@ -176,25 +188,29 @@ class HorizontalLinearStepper extends React.Component {
 
     if(value === 0)
     {
+      //chose propositional logic
       this.setState({
         activeStep: this.state.activeStep + 1,
         prevContent: temp,
         content: 
         <Paper style={pstyles.Paper}>
           <PropLogicInput pstyles={pstyles} handlerType={this.handlerType}/>
-        </Paper>
+        </Paper>,
+        textFieldDefault: '#Propositional Logic'
       });
     }
     else if(value === 1)
     {
+      //chose binary relation
       this.setState({
         activeStep: this.state.activeStep + 1,
         prevContent: temp,
-        content: <h1>BINARY RELATON CHOSEN</h1>
+        content: <h1>BINARY RELATION CHOSEN</h1>,
+        textFieldDefault: '#Binary Relation'
       });
     }  
   };
-
+  
   render() {
     const { classes } = this.props;
     const steps = getSteps();
@@ -229,8 +245,52 @@ class HorizontalLinearStepper extends React.Component {
     }
     */
 
+    let previewField = (null);
+    if(this.state.activeStep != 2)
+    {
+      previewField = 
+      <div style={{
+        width: '80%',
+        margin: '0 auto',
+        position: 'relative'
+      }}>
+        <TextField
+        key="GuideTextField"
+        label="Problem"
+        multiline
+        rows="3"
+        //value={value}
+        //className={classes.textField}
+        //fullWidth
+        margin="normal"
+        variant="outlined"
+        onChange={(e) => {
+          this.setState({textFieldDefault: e.target.value});
+        }}
+        value={this.state.textFieldDefault}
+        style={{width: '60%'}}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ 
+            position: 'absolute',
+            left: '90%',
+            top: '50%',
+            transform: 'translate(-50%,-50%)',
+            transform: 'translate3d(-50%,-50%,0)'}}
+          //className={classes.button}
+          //onClick={() => { onSubmit(input); }}
+        >
+          Submit
+
+        </Button>
+      </div>
+    }
+
     return (
       <div className={classes.root}>
+        {previewField}
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
             const props = {};
@@ -263,16 +323,19 @@ class HorizontalLinearStepper extends React.Component {
               <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
               <div>
 
-                {this.state.content}
-
                 <Button
                   disabled={activeStep === 0}
                   onClick={this.handleBack}
                   className={classes.button}
                   color="secondary"
+                  variant="contained"
                 >
                   Back
                 </Button>
+
+                {this.state.content}
+
+                
                 {this.isStepOptional(activeStep) && (
                   
                   <Button
@@ -302,8 +365,8 @@ class HorizontalLinearStepper extends React.Component {
   }
 }
 
-HorizontalLinearStepper.propTypes = {
+Guide.propTypes = {
   classes: PropTypes.object,
 };
 
-export default withStyles(styles)(HorizontalLinearStepper);
+export default withStyles(styles)(Guide);

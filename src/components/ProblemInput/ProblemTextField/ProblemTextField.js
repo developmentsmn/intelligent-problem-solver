@@ -17,20 +17,28 @@ class ProblemTextField extends Component {
     onChange: () => {},
   }
 
+  state = {
+    textFieldDefault: this.props.input
+  }
+
   render() {
     const { classes, value, onChange } = this.props;
     return (
       <div>
         <TextField
+          key="ProblemTextField"
           label="Problem"
           multiline
           rows="3"
-          value={value}
+          value={this.state.textFieldDefault}
+          onChange={(e) => {
+            this.setState({textFieldDefault: e.target.value});
+          }}
           className={classes.textField}
           fullWidth
           margin="normal"
           variant="outlined"
-          onChange={onChange}
+          //onChange={onChange}
         />
         <BlockMath>
           {value}

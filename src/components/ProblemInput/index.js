@@ -64,6 +64,7 @@ class VirtualKeyboard extends Component {
         <ProblemTextField
           value={input}
           onChange={e => this.onChangeInput(e)}
+          input={this.props.input}
         />
         <Button
           variant="contained"
