@@ -1,21 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { Grid } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import ButtonBases from './ButtonBases';
-import PropLogicInput from './PropLogicInput';
-import ProblemSolutionPage from '../ProblemSolutionPage/ProblemSolutionPage';
-import ProblemInput from '../ProblemInput/index';
-import solver from "../../libs/wolfram/solver";
-import ProblemTextField from '../ProblemInput/ProblemTextField/ProblemTextField';
-import _ from 'lodash';
+import React from "react";
+// import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import { Grid } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
+import _ from "lodash";
+import ButtonBases from "./ButtonBases";
+import PropLogicInput from "./PropLogicInput";
 
 
 const pstyles = {
@@ -61,15 +57,15 @@ class Guide extends React.Component {
     this.state = {
       activeStep: 0,
       skipped: new Set(),
-      content: 
-      <Grid container sm>
-        <Paper style={pstyles.Paper}>
-          <ButtonBases handler={this.handler}/>
-        </Paper>
-      </Grid>,
+      content:
+  <Grid container sm>
+    <Paper style={pstyles.Paper}>
+      <ButtonBases handler={this.handler} />
+    </Paper>
+  </Grid>,
       prevContent: [],
       textFieldDefault: "",
-      value: ''
+      // value: "",
     };
 
     this.handler = this.handler.bind(this);
@@ -92,25 +88,25 @@ class Guide extends React.Component {
   };
 
   handleBack = () => {
-    const { prevContent } = this.state;
+    const { prevContent, textFieldDefault } = this.state;
 
     if (prevContent.length === 1) {
       this.setState(state => ({
         activeStep: state.activeStep - 1,
         content: <Grid container sm>
-        <Paper style={pstyles.Paper}>
-          <ButtonBases handler={this.handler}/>
-        </Paper>
-      </Grid>,
+          <Paper style={pstyles.Paper}>
+            <ButtonBases handler={this.handler} />
+          </Paper>
+                 </Grid>,
         prevContent: [],
-        textFieldDefault: this.state.textFieldDefault.substring(0, this.state.textFieldDefault.lastIndexOf("#"))
+        textFieldDefault: textFieldDefault.substring(0, textFieldDefault.lastIndexOf("#")),
       }));
     } else {
       this.setState(state => ({
         activeStep: state.activeStep - 1,
-        content: this.state.prevContent[0],
-        prevContent: this.state.prevContent.splice(0, 1),
-        textFieldDefault: this.state.textFieldDefault.substring(0, this.state.textFieldDefault.lastIndexOf("#"))
+        content: state.prevContent[0],
+        prevContent: state.prevContent.splice(0, 1),
+        textFieldDefault: textFieldDefault.substring(0, textFieldDefault.lastIndexOf("#")),
       }));
     }
   };
@@ -139,77 +135,78 @@ class Guide extends React.Component {
     });
   };
 
-  isStepSkipped(step) {
-    return this.state.skipped.has(step);
-  }
-  
   handlerType = (data) => {
-    let temp = _.cloneDeep(this.state.prevContent);
-    temp.splice(0, 0, this.state.content);
+    const { prevContent, content } = this.state;
+    const { changeHandler } = this.props;
+
+    const temp = _.cloneDeep(prevContent);
+    temp.splice(0, 0, content);
 
     const { index, hyp, goal } = data;
 
-    //simplification === 1
-    if(index === 1)
-    {
-      this.setState({
-        activeStep: this.state.activeStep + 1,
+    // simplification === 1
+    if (index === 1) {
+      this.setState(prevState => ({
+        activeStep: prevState.activeStep + 1,
         prevContent: temp,
         content: <h1>SIMPLIFICATION</h1>,
-        textFieldDefault: "#Propositional Logic #Simplification"
-      })
+        textFieldDefault: "#Propositional Logic #Simplification",
+      }));
     }
-    //proof === 0
-    else if(index === 0)
-    {
-      this.props.changeHandler();
-      
+    // proof === 0
+    else if (index === 0) {
+      changeHandler(hyp, goal);
+
       /*
       this.setState({
         activeStep: this.state.activeStep + 1,
         prevContent: temp,
-        content: 
+        content:
         <div>
           <ProblemSolutionPage input={"#Propositional Logic #Prove #{" + hyp + " " + goal + "}"}/>
         </div>,
         textFieldDefault: "#Propositional Logic #Prove" + " " + hyp + " " + goal
-      })*/
+      }) */
     }
   };
 
   handler = (value) => {
-    const temp = this.state.prevContent;
-    temp.splice(0, 0, this.state.content);
+    const { prevContent, content } = this.state;
 
-    if(value === 0)
-    {
-      //chose propositional logic
-      this.setState({
-        activeStep: this.state.activeStep + 1,
+    const temp = prevContent;
+    temp.splice(0, 0, content);
+
+    if (value === 0) {
+      // chose propositional logic
+      this.setState(prevState => ({
+        activeStep: prevState.activeStep + 1,
         prevContent: temp,
-        content: 
-        <Paper style={pstyles.Paper}>
-          <PropLogicInput pstyles={pstyles} handlerType={this.handlerType}/>
-        </Paper>,
-        textFieldDefault: '#Propositional Logic'
-      });
-    }
-    else if(value === 1)
-    {
-      //chose binary relation
-      this.setState({
-        activeStep: this.state.activeStep + 1,
+        content:
+  <Paper style={pstyles.Paper}>
+    <PropLogicInput pstyles={pstyles} handlerType={this.handlerType} />
+  </Paper>,
+        textFieldDefault: "#Propositional Logic",
+      }));
+    } else if (value === 1) {
+      // chose binary relation
+      this.setState(prevState => ({
+        activeStep: prevState.activeStep + 1,
         prevContent: temp,
         content: <h1>BINARY RELATION CHOSEN</h1>,
-        textFieldDefault: '#Binary Relation'
-      });
+        textFieldDefault: "#Binary Relation",
+      }));
     }
   };
-  
+
+  isStepSkipped(step) {
+    const { skipped } = this.state;
+    return skipped.has(step);
+  }
+
   render() {
     const { classes } = this.props;
     const steps = getSteps();
-    const { activeStep } = this.state;
+    const { activeStep, content, textFieldDefault } = this.state;
 
     // let content;
 
@@ -241,46 +238,48 @@ class Guide extends React.Component {
     */
 
     let previewField = (null);
-    if(this.state.activeStep != 2)
-    {
-      previewField = 
-      <div style={{
-        width: '80%',
-        margin: '0 auto',
-        position: 'relative'
-      }}>
-        <TextField
-        key="GuideTextField"
-        label="Problem"
-        multiline
-        rows="3"
-        //value={value}
-        //className={classes.textField}
-        //fullWidth
-        margin="normal"
-        variant="outlined"
-        onChange={(e) => {
-          this.setState({textFieldDefault: e.target.value});
+    if (activeStep !== 2) {
+      previewField = (
+        <div style={{
+          width: "80%",
+          margin: "0 auto",
+          position: "relative",
         }}
-        value={this.state.textFieldDefault}
-        style={{width: '60%'}}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ 
-            position: 'absolute',
-            left: '90%',
-            top: '50%',
-            transform: 'translate(-50%,-50%)',
-            transform: 'translate3d(-50%,-50%,0)'}}
-          //className={classes.button}
-          //onClick={() => { onSubmit(input); }}
         >
+          <TextField
+            key="GuideTextField"
+            label="Problem"
+            multiline
+            rows="3"
+            // value={value}
+            // className={classes.textField}
+            // fullWidth
+            margin="normal"
+            variant="outlined"
+            onChange={(e) => {
+              this.setState({ textFieldDefault: e.target.value });
+            }}
+            value={textFieldDefault}
+            style={{ width: "60%" }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            style={{
+              position: "absolute",
+              left: "90%",
+              top: "50%",
+              transform: "translate(-50%,-50%)",
+              transform: "translate3d(-50%,-50%,0)",
+            }}
+          // className={classes.button}
+          // onClick={() => { onSubmit(input); }}
+          >
           Submit
 
-        </Button>
-      </div>
+          </Button>
+        </div>
+      );
     }
 
     return (
@@ -328,9 +327,9 @@ class Guide extends React.Component {
                   Back
                 </Button>
 
-                {this.state.content}
+                {content}
 
-                
+
                 {this.isStepOptional(activeStep) && (
 
                   <Button
@@ -351,8 +350,10 @@ class Guide extends React.Component {
   }
 }
 
+/*
 Guide.propTypes = {
   classes: PropTypes.object,
 };
+*/
 
 export default withStyles(styles)(Guide);

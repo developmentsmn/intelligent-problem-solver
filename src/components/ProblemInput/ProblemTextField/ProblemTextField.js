@@ -10,6 +10,8 @@ class ProblemTextField extends Component {
     classes: PropTypes.shape().isRequired,
     value: PropTypes.string,
     onChange: PropTypes.func,
+    textField: PropTypes.string.isRequired,
+    textFieldHandler: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -17,12 +19,37 @@ class ProblemTextField extends Component {
     onChange: () => {},
   }
 
-  state = {
-    textFieldDefault: this.props.input
+  constructor(props) {
+    super(props);
+    const { textField } = this.props;
+    this.state = {
+      textFieldDefault: textField,
+    };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { textFieldDefault } = this.state;
+
+    if (textFieldDefault !== nextProps.textField) {
+      if (!nextProps.textField.includes(undefined)) {
+        this.setState({
+          textFieldDefault: nextProps.textField,
+        });
+      } else {
+        this.setState({
+          textFieldDefault: "#Propositional Logic #Prove #Enter a problem here",
+        });
+      }
+    }
+  }
+
+
   render() {
-    const { classes, value, onChange } = this.props;
+    const {
+      classes, value, onChange, textFieldHandler,
+    } = this.props;
+    const { textFieldDefault } = this.state;
+
     return (
       <div>
         <TextField
@@ -30,16 +57,18 @@ class ProblemTextField extends Component {
           label="Problem"
           multiline
           rows="3"
-          value={this.state.textFieldDefault}
+          value={textFieldDefault}
           onChange={(e) => {
             onChange(e);
-            this.setState({textFieldDefault: e.target.value});
+            // this.setState({ textFieldDefault: e.target.value });
+            // this.props.textField = e.target.value;
+            textFieldHandler(e.target.value);
           }}
           className={classes.textField}
           fullWidth
           margin="normal"
           variant="outlined"
-          //onChange={onChange}
+          // onChange={onChange}
         />
         <BlockMath>
           {value}
@@ -48,5 +77,10 @@ class ProblemTextField extends Component {
     );
   }
 }
+
+/*
+ProblemTextField.propTypes = {
+  input: PropTypes.string.isRequired,
+}; */
 
 export default withStyles(styles)(ProblemTextField);

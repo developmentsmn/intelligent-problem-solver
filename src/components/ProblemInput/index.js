@@ -12,6 +12,7 @@ class VirtualKeyboard extends Component {
   static propTypes = {
     classes: PropTypes.shape().isRequired,
     onSubmit: PropTypes.func,
+    textField: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -21,7 +22,14 @@ class VirtualKeyboard extends Component {
   state = {
     layoutName: "default",
     input: "",
+    textField: "",
   };
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      textField: nextProps.textField,
+    });
+  }
 
   onChange = (input) => {
     this.setState({
@@ -56,23 +64,29 @@ class VirtualKeyboard extends Component {
     );
   };
 
+  textFieldHandler = (event) => {
+    this.setState({ textField: event });
+  }
+
   render() {
     const { classes, onSubmit } = this.props;
-    const { input, layoutName } = this.state;
-    
+    const { input, layoutName, textField } = this.state;
+
     return (
       <div>
         <ProblemTextField
           value={input}
           onChange={e => this.onChangeInput(e)}
-          input={this.props.input}
+          textField={textField}
+          textFieldHandler={this.textFieldHandler}
         />
         <Button
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() => { 
-            onSubmit(input); }}
+          onClick={() => {
+            onSubmit(input);
+          }}
         >
           Submit
 

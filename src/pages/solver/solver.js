@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Page from "../../components/Page/Page";
-import Guide from "../../components/ProblemChooser/Guide";
+import Carousel from "../../components/ProblemChooser/Carousel";
 
 class LogicProof extends Component {
   render() {
     return (
       <Page>
-        <Guide />
+        <Carousel />
       </Page>
     );
   }
