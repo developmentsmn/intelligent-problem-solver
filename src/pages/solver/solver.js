@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Page from "../../components/Page/Page";
-import HorizontalLinearStepper from "../../components/ProblemChooser/HorizontalLinearStepper";
+import Carousel from "../../components/ProblemChooser/Carousel";
 
 class LogicProof extends Component {
   render() {
     return (
       <Page>
-        <HorizontalLinearStepper />
+        <Carousel />
       </Page>
     );
   }
