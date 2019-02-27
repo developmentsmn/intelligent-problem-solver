@@ -96,7 +96,6 @@ class Carousel extends React.Component {
     ];
     */
 
-
     const maxSteps = tutorialSteps.length;
 
     return (
