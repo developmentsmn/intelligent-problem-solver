@@ -22,7 +22,25 @@ class ProblemSolutionPage extends Component {
   }
 
     onSubmit = (problemTeX) => {
-      solver(problemTeX)
+      const terms = problemTeX.split("#");
+
+      var linkData = require('./solverLinks.json')
+
+      var link = undefined;
+      //console.log("array:", terms);
+
+      if(terms[1] === "Propositional Logic ")
+      {
+        const key = "PropositionalLogic";
+        if(terms[2] === "Prove ")
+        {
+          const key2 = "Prove";
+          link = linkData[key][key2]
+          console.log("link:", link);
+          problemTeX = terms[3];
+        }
+      }
+      solver(problemTeX, link)
         .then((stepList) => {
           this.setState({ stepList });
         });
