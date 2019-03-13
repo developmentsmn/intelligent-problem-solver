@@ -105,7 +105,7 @@ class Carousel extends React.Component {
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={activeStep}
           onChangeIndex={this.handleStepChange}
-          enableMouseEvents
+          //enableMouseEvents
         >
           {tutorialSteps.map((step, index) => (
             <div key={step.label}>

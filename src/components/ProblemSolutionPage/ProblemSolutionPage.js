@@ -12,6 +12,7 @@ class ProblemSolutionPage extends Component {
     this.state = {
       stepList: [],
       textField: "",
+      pageValue: '',
     };
   }
 
@@ -28,6 +29,10 @@ class ProblemSolutionPage extends Component {
 
       var link = undefined;
       //console.log("array:", terms);
+
+      this.setState(({
+        pageValue: terms[2]
+      }));
 
       if(terms[1] === "Propositional Logic ")
       {
@@ -56,7 +61,7 @@ class ProblemSolutionPage extends Component {
           {/* <HorizontalLinearStepper /> */}
 
           <ProblemInput textField={textField} onSubmit={this.onSubmit} />
-          <SolutionStepper stepList={stepList} />
+          <SolutionStepper topic={this.state.pageValue} stepList={stepList} />
         </div>
       );
     }
