@@ -54,6 +54,13 @@ class Carousel extends React.Component {
 
   handleNext = (hyp, goal) => {
     console.log(hyp);
+
+    let newArray = this.state.tutorialSteps.map(l => Object.assign({}, l));
+
+    newArray[1].content = <ProblemSolutionPage textField={`#Propositional Logic #Prove #${hyp}${goal}`} />;
+    
+
+    /*
     this.setState(prevState => ({
       activeStep: prevState.activeStep + 1,
       tutorialSteps: [
@@ -67,6 +74,13 @@ class Carousel extends React.Component {
         },
       ],
     }));
+    */
+
+    this.setState(prevState => ({
+      activeStep: prevState.activeStep + 1,
+    }));
+
+    this.setState({tutorialSteps: newArray}, () => {console.log("UPDATED STATE ", this.state.tutorialSteps[1].content)});
   };
 
   handleBack = () => {
@@ -109,6 +123,7 @@ class Carousel extends React.Component {
         >
           {tutorialSteps.map((step, index) => (
             <div key={step.label}>
+            {console.log(step)}
               {Math.abs(activeStep - index) <= 2 ? (
                 <div className={classes.img}>{step.content}</div>
               ) : null}

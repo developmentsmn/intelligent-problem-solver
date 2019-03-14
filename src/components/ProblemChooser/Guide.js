@@ -69,6 +69,7 @@ class Guide extends React.Component {
     };
 
     this.handler = this.handler.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
 
@@ -203,6 +204,27 @@ class Guide extends React.Component {
     return skipped.has(step);
   }
 
+  onSubmit = (text) => {
+    const { changeHandler } = this.props;
+
+    if(text === "#Propositional Logic")
+    {
+      //0 is for propositional logic
+      this.handler(0);
+    }
+    else if(text === "#Binary Relations")
+    {
+      //1 is for binary relation
+      this.handler(1);
+    }
+    else if(text.includes("#Propositional Logic #Prove"))
+    {
+      let textArray = text.split('#');
+      //console.log(textArray);
+      changeHandler(textArray[3],"");
+    }
+  };
+
   render() {
     const { classes } = this.props;
     const steps = getSteps();
@@ -272,6 +294,10 @@ class Guide extends React.Component {
               transform: "translate(-50%,-50%)",
               transform: "translate3d(-50%,-50%,0)",
             }}
+            onClick={() => {
+              this.onSubmit(textFieldDefault);
+            }
+            }
           // className={classes.button}
           // onClick={() => { onSubmit(input); }}
           >

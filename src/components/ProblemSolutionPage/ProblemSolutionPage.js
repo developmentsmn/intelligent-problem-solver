@@ -11,7 +11,7 @@ class ProblemSolutionPage extends Component {
     super(props);
     this.state = {
       stepList: [],
-      textField: "",
+      textField: props.textField,
       pageValue: '',
     };
   }
@@ -23,6 +23,8 @@ class ProblemSolutionPage extends Component {
   }
 
     onSubmit = (problemTeX) => {
+      console.log(problemTeX);
+
       const terms = problemTeX.split("#");
 
       var linkData = require('./solverLinks.json')

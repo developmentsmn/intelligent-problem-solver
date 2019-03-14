@@ -21,7 +21,7 @@ class VirtualKeyboard extends Component {
 
   state = {
     layoutName: "default",
-    input: "",
+    input: this.props.textField,
     textField: "",
   };
 
