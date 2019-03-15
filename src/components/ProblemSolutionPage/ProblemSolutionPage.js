@@ -56,6 +56,7 @@ class ProblemSolutionPage extends Component {
     render() {
       const { stepList, textField } = this.state;
       // const { textField } = this.props;
+      console.log(textField);
       
       return (
         <div>

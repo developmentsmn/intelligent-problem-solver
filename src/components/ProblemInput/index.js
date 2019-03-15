@@ -22,14 +22,21 @@ class VirtualKeyboard extends Component {
   state = {
     layoutName: "default",
     input: this.props.textField,
-    textField: "",
+    textField: this.props.textField,
   };
 
+  
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      textField: nextProps.textField,
-    });
+    if(nextProps.textField !== this.props.textField)
+    {
+      this.setState({
+        input: nextProps.textField,
+        textField: nextProps.textField,
+      },() => console.log(this.state.input));
+    }
+    
   }
+  
 
   onChange = (input) => {
     this.setState({
