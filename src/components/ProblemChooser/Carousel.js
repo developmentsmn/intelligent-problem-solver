@@ -9,7 +9,6 @@ import SwipeableViews from "react-swipeable-views";
 import ProblemSolutionPage from "../ProblemSolutionPage/ProblemSolutionPage";
 import Guide from "./Guide";
 
-
 const styles = theme => ({
   root: {
     Width: "100%",
@@ -48,7 +47,7 @@ class Carousel extends React.Component {
         },
       ],
     };
-
+    
     this.handleNext = this.handleNext.bind(this);
   }
 

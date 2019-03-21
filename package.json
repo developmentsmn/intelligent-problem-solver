@@ -5,10 +5,13 @@
   "dependencies": {
     "@material-ui/core": "^3.8.3",
     "@material-ui/icons": "^3.0.2",
+    "algoliasearch": "^3.32.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "eslint-config-airbnb": "^17.1.0",
+    "firebase": "^5.9.0",
+    "http2": "^3.3.7",
     "katex": "^0.10.0",
     "lint": "^1.1.2",
     "lodash": "^4.17.11",
