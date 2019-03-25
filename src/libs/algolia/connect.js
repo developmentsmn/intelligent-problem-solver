@@ -52,6 +52,8 @@ const searchResult = async (query) => {
         console.log('Error getting documents', err);
       });
 
+    */
+   
     /*
     // Get all contacts from Firebase
     database.ref('/KnowledgeElement/').once('value', element => {

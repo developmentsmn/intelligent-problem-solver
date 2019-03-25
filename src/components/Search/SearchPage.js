@@ -76,18 +76,25 @@ class Search extends React.Component {
         
         return(
             <div>
+                <h1>Dictionary</h1>
                 <div style={{textAlign: 'center'}}>
                     <TextField
                         value={input}
                         label="Search"
                         style={{ margin: 8, paddingBottom: "3%", width: "50%"}}
-                        placeholder="Enter search term here..."
+                        placeholder="Enter search term(s) here..."
                         //helperText="Full width!"
                         margin="normal"
                         InputLabelProps={{
                             shrink: true,
                         }}
                         onChange={e => this.onChangeInput(e)}
+                        onKeyDown={e => {
+                            if(e.keyCode === 13 /*13 is the code for enter key*/)
+                            {
+                                this.onSubmit(input);
+                            }
+                        }}
                     />
                     <Fab 
                         size="small" 
@@ -113,7 +120,16 @@ class Search extends React.Component {
                         {this.state.data.map(row => (
                             <TableRow>
                                 <TableCell>{row.topic}</TableCell>
-                                <TableCell>{row.content}</TableCell>
+                                <TableCell>
+                                    {row.content.split('\\n').map(function(item) {
+                                        return(
+                                            <span>
+                                                {item}
+                                                <br/>
+                                            </span>
+                                        )
+                                    })}
+                                </TableCell>
                             </TableRow>
                         ))}
                         </TableBody>
