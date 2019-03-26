@@ -8,6 +8,7 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import ProblemSolutionPage from "../ProblemSolutionPage/ProblemSolutionPage";
 import Guide from "./Guide";
+import SearchDrawer from "../Search/SearchDrawer";
 
 const styles = theme => ({
   root: {
@@ -113,6 +114,7 @@ class Carousel extends React.Component {
 
     return (
       <div className={classes.root}>
+        <SearchDrawer/>
         <SwipeableViews
           styles={{ width: "100%" }}
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
