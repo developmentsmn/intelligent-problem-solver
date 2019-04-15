@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
-import { BlockMath } from "react-katex";
 import styles from "./ProblemTextField.style";
+import {decodeWolfram} from "../../../libs/wolfram/text-replace";
 
 class ProblemTextField extends Component {
   static propTypes = {
@@ -62,17 +62,18 @@ class ProblemTextField extends Component {
             onChange(e);
             // this.setState({ textFieldDefault: e.target.value });
             // this.props.textField = e.target.value;
-            textFieldHandler(e.target.value);
+            textFieldHandler(decodeWolfram(e.target.value));
           }}
           className={classes.textField}
           fullWidth
-          margin="normal"
+          style={{marginLeft: 0, marginRight:0, marginTop:"10px"}}
           variant="outlined"
           // onChange={onChange}
         />
+        {/*
         <BlockMath>
           {value}
-        </BlockMath>
+        </BlockMath>*/}
       </div>
     );
   }

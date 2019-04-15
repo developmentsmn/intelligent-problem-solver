@@ -119,14 +119,7 @@ class SearchDrawer extends React.Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        <main
-          className={classNames(classes.content, {
-            [classes.contentShift]: open,
-          })}
-        >
-          <div className={classes.drawerHeader} />
-          {/* Content inside main page for drawer */}
-        </main>
+        
         <Drawer
           className={classes.drawer}
           variant="persistent"

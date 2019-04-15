@@ -12,7 +12,7 @@ import TextField from "@material-ui/core/TextField";
 import _ from "lodash";
 import ButtonBases from "./ButtonBases";
 import PropLogicInput from "./PropLogicInput";
-
+import { decodeWolfram } from "../../libs/wolfram/text-replace";
 
 const pstyles = {
   Paper: {
@@ -279,7 +279,7 @@ class Guide extends React.Component {
             margin="normal"
             variant="outlined"
             onChange={(e) => {
-              this.setState({ textFieldDefault: e.target.value });
+              this.setState({ textFieldDefault: decodeWolfram(e.target.value) });
             }}
             value={textFieldDefault}
             style={{ width: "60%" }}

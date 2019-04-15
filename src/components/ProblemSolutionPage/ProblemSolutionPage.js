@@ -5,6 +5,7 @@ import style from "./ProblemSolutionPage.style";
 import solver from "../../libs/wolfram/solver";
 import ProblemInput from "../ProblemInput/index";
 import SolutionStepper from "../SolutionStepper/SolutionStepper";
+import {encodeWolfram} from "../../libs/wolfram/text-replace";
 
 class ProblemSolutionPage extends Component {
   constructor(props) {
@@ -55,8 +56,6 @@ class ProblemSolutionPage extends Component {
 
     render() {
       const { stepList, textField } = this.state;
-      // const { textField } = this.props;
-      console.log(textField);
       
       return (
         <div>

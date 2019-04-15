@@ -64,10 +64,10 @@ class VirtualKeyboard extends Component {
     this.setState(
       {
         input,
-      },
+      }/*,
       () => {
         this.keyboard.setInput(input);
-      },
+      },*/
     );
   };
 
@@ -98,7 +98,7 @@ class VirtualKeyboard extends Component {
           Submit
 
         </Button>
-        <Keyboard
+        {/*<Keyboard
           ref={(r) => { this.keyboard = r; return r; }}
           onChange={inputKB => this.onChange(inputKB)}
           onKeyPress={button => this.onKeyPress(button)}
@@ -138,7 +138,7 @@ class VirtualKeyboard extends Component {
               buttons: "Q q",
             },
           ]}
-        />
+        />*/}
       </div>
     );
   }

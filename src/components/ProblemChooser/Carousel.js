@@ -53,28 +53,10 @@ class Carousel extends React.Component {
   }
 
   handleNext = (hyp, goal) => {
-    console.log(hyp);
 
     let newArray = this.state.tutorialSteps.map(l => Object.assign({}, l));
 
-    newArray[1].content = <ProblemSolutionPage textField={`#Propositional Logic #Prove #${hyp}${goal}`} />;
-    
-
-    /*
-    this.setState(prevState => ({
-      activeStep: prevState.activeStep + 1,
-      tutorialSteps: [
-        {
-          content: <div style={{ display: "flex", justifyContent: "center" }}>
-            <Guide changeHandler={this.handleNext} />
-          </div>,
-        },
-        {
-          content: <ProblemSolutionPage textField={`#Propositional Logic #Prove #${hyp}${goal}`} />,
-        },
-      ],
-    }));
-    */
+    newArray[1].content = <ProblemSolutionPage textField={`#Propositional Logic #Prove #{${hyp},${goal}}`} />;
 
     this.setState(prevState => ({
       activeStep: prevState.activeStep + 1,
@@ -97,26 +79,13 @@ class Carousel extends React.Component {
     const { classes, theme } = this.props;
     const { activeStep, tutorialSteps } = this.state;
 
-    /*
-    const tutorialSteps = [
-      {
-        content: <div style={{ display: "flex", justifyContent: "center" }}>
-          <Guide changeHandler={this.handleNext} />
-        </div>,
-      },
-      {
-        content: <ProblemSolutionPage textField={"#Propositional Logic #Prove #Enter a problem"}/>,
-      },
-    ];
-    */
-
     const maxSteps = tutorialSteps.length;
 
     return (
       <div className={classes.root}>
         <SearchDrawer/>
         <SwipeableViews
-          styles={{ width: "100%" }}
+          style={{ marginLeft: "30px", marginRight:"30px"}}
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={activeStep}
           onChangeIndex={this.handleStepChange}

@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import {decodeWolfram} from "../../libs/wolfram/text-replace";
 
 class ProbTypeCard extends Component {
   static propTypes = {
@@ -33,8 +34,8 @@ class ProbTypeCard extends Component {
           onClick={() => handlerType(
             {
               index,
-              hyp: description.Hyp,
-              goal: description.Goal,
+              hyp: decodeWolfram(description.Hyp),
+              goal: decodeWolfram(description.Goal),
             },
           )}
         >
@@ -47,9 +48,9 @@ class ProbTypeCard extends Component {
               {title}
             </Typography>
             <Typography component="p">
-              {`HYP: ${description.Hyp}`}
+              {`HYP: ${decodeWolfram(description.Hyp)}`}
               <br />
-              {`GOAL: ${description.Goal}`}
+              {`GOAL: ${decodeWolfram(description.Goal)}`}
             </Typography>
           </CardContent>
         </CardActionArea>

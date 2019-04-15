@@ -17,7 +17,7 @@ class PropLogicInput extends Component {
           icon="./imagelocation"
           title="Prove"
           description={{
-            Hyp: "{A, B => C}",
+            Hyp: "{A, A \\[Implies] B}",
             Goal: "{B}",
           }}
           handlerType={handlerType}

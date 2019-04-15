@@ -156,7 +156,6 @@ class VerticalLinearStepper extends React.Component {
     {
       return (
         <div>
-          <h1>OTHER</h1>
         </div>
       )
     }
