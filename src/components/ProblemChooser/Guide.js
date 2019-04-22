@@ -279,7 +279,7 @@ class Guide extends React.Component {
             margin="normal"
             variant="outlined"
             onChange={(e) => {
-              this.setState({ textFieldDefault: decodeWolfram(e.target.value) });
+              this.setState({ textFieldDefault: decodeWolfram(e.target.value).text });
             }}
             value={textFieldDefault}
             style={{ width: "60%" }}

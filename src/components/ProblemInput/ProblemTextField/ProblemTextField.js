@@ -19,69 +19,38 @@ class ProblemTextField extends Component {
     onChange: () => {},
   }
 
-  constructor(props) {
-    super(props);
-    const { textField } = this.props;
-    this.state = {
-      textFieldDefault: textField,
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { textFieldDefault } = this.state;
-
-    if (textFieldDefault !== nextProps.textField) {
-      if (!nextProps.textField.includes(undefined)) {
-        this.setState({
-          textFieldDefault: nextProps.textField,
-        });
-      } else {
-        this.setState({
-          textFieldDefault: "#Propositional Logic #Prove #Enter a problem here",
-        });
-      }
-    }
-  }
-
-
   render() {
     const {
-      classes, value, onChange, textFieldHandler,
+      classes, value, onChange
     } = this.props;
-    const { textFieldDefault } = this.state;
 
     return (
-      <div>
+      <div className={classes.root}>
         <TextField
           key="ProblemTextField"
           label="Problem"
           multiline
           rows="3"
-          value={textFieldDefault}
+          value={value}
           onChange={(e) => {
+            var cursorStart = e.target.selectionStart;
+            var cursorEnd = e.target.selectionEnd;
+            const { text, lenOffset : stepBack } = decodeWolfram(e.target.value);
+            e.target.value = text;
+            e.target.setSelectionRange(cursorStart + stepBack, cursorEnd + stepBack);
             onChange(e);
-            // this.setState({ textFieldDefault: e.target.value });
-            // this.props.textField = e.target.value;
-            textFieldHandler(decodeWolfram(e.target.value));
           }}
-          className={classes.textField}
+          InputProps={{
+            classes: {
+              root: classes.textField
+            },
+          }}
           fullWidth
-          style={{marginLeft: 0, marginRight:0, marginTop:"10px"}}
           variant="outlined"
-          // onChange={onChange}
         />
-        {/*
-        <BlockMath>
-          {value}
-        </BlockMath>*/}
       </div>
     );
   }
 }
-
-/*
-ProblemTextField.propTypes = {
-  input: PropTypes.string.isRequired,
-}; */
 
 export default withStyles(styles)(ProblemTextField);

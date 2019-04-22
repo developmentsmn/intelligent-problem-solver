@@ -34,8 +34,8 @@ class ProbTypeCard extends Component {
           onClick={() => handlerType(
             {
               index,
-              hyp: decodeWolfram(description.Hyp),
-              goal: decodeWolfram(description.Goal),
+              hyp: decodeWolfram(description.Hyp).text,
+              goal: decodeWolfram(description.Goal).text,
             },
           )}
         >
@@ -48,9 +48,9 @@ class ProbTypeCard extends Component {
               {title}
             </Typography>
             <Typography component="p">
-              {`HYP: ${decodeWolfram(description.Hyp)}`}
+              {`HYP: ${decodeWolfram(description.Hyp).text}`}
               <br />
-              {`GOAL: ${decodeWolfram(description.Goal)}`}
+              {`GOAL: ${decodeWolfram(description.Goal).text}`}
             </Typography>
           </CardContent>
         </CardActionArea>

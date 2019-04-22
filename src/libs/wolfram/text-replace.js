@@ -6,10 +6,14 @@ export const decodeWolfram = (text) => {
         "\\[Equivalent]": " ⇔ ",
         "\\[Not]": " ¬ ",
     };
+    const l1 = text.length;
     for (var key in map){
         text = text.replace(key, map[key]);
     }
-    return text;
+    return {
+        text,
+        lenOffset: text.length - l1
+    };
 }
 
 export const encodeWolfram = (text) => {
