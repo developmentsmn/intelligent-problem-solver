@@ -1,10 +1,10 @@
 export const decodeWolfram = (text) => {
     const map = {
-        "\\[Implies]": " ⇒ ",
-        "\\[And]": " ∧ ",
-        "\\[Or]": " ∨ ",
-        "\\[Equivalent]": " ⇔ ",
-        "\\[Not]": " ¬ ",
+        "\\[Implies]": "⇒",
+        "\\[And]": "∧",
+        "\\[Or]": "∨",
+        "\\[Equivalent]": "⇔",
+        "\\[Not]": "¬",
     };
     const l1 = text.length;
     for (var key in map){
@@ -18,11 +18,11 @@ export const decodeWolfram = (text) => {
 
 export const encodeWolfram = (text) => {
     const map = {
-        "\\[Implies]": " ⇒ ",
-        "\\[And]": " ∧ ",
-        "\\[Or]": " ∨ ",
-        "\\[Equivalent]": " ⇔ ",
-        "\\[Not]": " ¬ ",
+        "\\[Implies]": "⇒",
+        "\\[And]": "∧",
+        "\\[Or]": "∨",
+        "\\[Equivalent]": "⇔",
+        "\\[Not]": "¬",
     };
     let map2 = {};
     for (var key in map){

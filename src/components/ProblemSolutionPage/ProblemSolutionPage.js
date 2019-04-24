@@ -61,8 +61,6 @@ class ProblemSolutionPage extends Component {
         <div>
 
           {/* <HorizontalLinearStepper /> */}
-
-          <ProblemInput textField={textField} onSubmit={this.onSubmit} />
           <SolutionStepper topic={this.state.pageValue} stepList={stepList} />
         </div>
       );

@@ -23,12 +23,14 @@ class VirtualKeyboard extends Component {
     layoutName: "default",
     input: this.props.textField,
   };
-  
+
+  componentDidUpdate(){
+    this.keyboard.setInput(this.props.value);
+  }
 
   onChange = (input) => {
-    this.setState({
-      input,
-    });
+    this.keyboard.setInput(input);
+    this.props.onChange(input);
   };
 
   onKeyPress = (button) => {
@@ -47,37 +49,27 @@ class VirtualKeyboard extends Component {
   };
 
   onChangeInput = (event) => {
-    
+    this.keyboard.setInput(input);
     const input = event.target.value;
-    this.setState(
-      {
-        input,
-      },
-      () => {
-        this.keyboard.setInput(input);
-      },
-    );
-    
+    this.props.onChange(input);
   };
 
   render() {
-    const { classes, onSubmit } = this.props;
-    const { input, layoutName } = this.state;
+    const { classes, onSubmit, value } = this.props;
+    const { layoutName } = this.state;
 
     return (
       <div className={classes.root}>
         <div className={classes.TextField}>
           <ProblemTextField
-            value={input}
+            value={value}
             onChange={e => this.onChangeInput(e)}
           />
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => {
-              onSubmit(input);
-            }}
+            onClick={onSubmit}
           >
             Submit
           </Button>

@@ -1,0 +1,36 @@
+{
+    "PropositionalLogic":{
+        "URL": "http://www.free-icons-download.net/images/implies-83546.png",
+        "ProblemTypes":{
+            "Prove":{
+                "Link": "https://www.wolframcloud.com/objects/caf4bc01-7da0-4709-bd87-3e31f7ccfbce",
+                "SampleProblems":[
+                    {
+                        "Hypothesis": "{A, A \\[Implies] B}",
+                        "Goal": "{B}"
+                    },
+                    {
+                        "Hypothesis": "{P \\[Implies] Q, R \\[Or] \\[Not]Q, (\\[Not]W) \\[Implies] \\[Not]R}",
+                        "Goal": " {P \\[Implies] W}"
+                    },
+                    {
+                        "Hypothesis": "{A \\[Implies] (B \\[Implies] C), A \\[Or] \\[Not]D,B,D}",
+                        "Goal": " {P \\[Implies] W}"
+                    }
+                ]
+            },
+            "Simplication":{
+                "Link": "",
+                "SampleProblems":
+                [
+                    {
+                        "Expression": "A \\[And] (A \\[Implies] B)"
+                    }
+                ]
+            }
+        }
+    },
+    "BinaryRelations":{
+        "URL": "https://banner2.kisspng.com/20180519/fjl/kisspng-mathematics-subset-symbol-binary-relation-sign-5affebfdf03a69.231163551526721533984.jpg"
+    }
+}

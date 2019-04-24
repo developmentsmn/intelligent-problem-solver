@@ -18,6 +18,17 @@ class ProbTypeCard extends Component {
     title: PropTypes.string.isRequired,
   }
 
+  getContent = () => {
+    const { description } = this.props;
+    var content = [];
+    for (var key in description) {
+      content.push({
+        key,
+        problem: decodeWolfram(description[key]).text
+      });
+    }
+    return content;
+  }
 
   render() {
     // TODO:: icon needs to assigned a value of an image
@@ -34,8 +45,9 @@ class ProbTypeCard extends Component {
           onClick={() => handlerType(
             {
               index,
-              hyp: decodeWolfram(description.Hyp).text,
-              goal: decodeWolfram(description.Goal).text,
+              title,
+              icon,
+              description
             },
           )}
         >
@@ -48,9 +60,14 @@ class ProbTypeCard extends Component {
               {title}
             </Typography>
             <Typography component="p">
-              {`HYP: ${decodeWolfram(description.Hyp).text}`}
-              <br />
-              {`GOAL: ${decodeWolfram(description.Goal).text}`}
+              {
+                this.getContent().map((item, index) => 
+                  <div>
+                    {`${item.key}: ${item.problem}`}
+                    <br/>
+                  </div>
+                )
+              }
             </Typography>
           </CardContent>
         </CardActionArea>

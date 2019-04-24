@@ -78,26 +78,8 @@ const styles = theme => ({
   },
 });
 
-const images = [
-  {
-    url: "http://www.free-icons-download.net/images/implies-83546.png",
-    title: "Propositional Logic",
-    width: "30%",
-  },
-  {
-    url: "https://banner2.kisspng.com/20180519/fjl/kisspng-mathematics-subset-symbol-binary-relation-sign-5affebfdf03a69.231163551526721533984.jpg",
-    title: "Binary Relations",
-    width: "30%",
-  },
-  {
-    url: "/static/images/grid-list/camera.jpg",
-    title: "Other",
-    width: "30%",
-  },
-];
-
 function ButtonBases(props) {
-  const { classes } = props;
+  const { classes, handler, images } = props;
 
   return (
     <div className={classes.root}>
@@ -108,9 +90,9 @@ function ButtonBases(props) {
           className={classes.image}
           focusVisibleClassName={classes.focusVisible}
           style={{
-            width: image.width,
+            width: "30%",
           }}
-          onClick={() => props.handler(index)}
+          onClick={() => handler(index)}
         >
           <span
             className={classes.imageSrc}
@@ -140,10 +122,12 @@ function ButtonBases(props) {
 ButtonBases.propTypes = {
   classes: PropTypes.shape().isRequired,
   handler: PropTypes.func,
+  images: PropTypes.arrayOf(PropTypes.any)
 };
 
 ButtonBases.defaultProps = {
-  handler: () => {},
+  handler: ()=>{},
+  images: []
 };
 
 export default withStyles(styles)(ButtonBases);

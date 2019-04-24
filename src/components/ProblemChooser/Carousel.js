@@ -9,6 +9,7 @@ import SwipeableViews from "react-swipeable-views";
 import ProblemSolutionPage from "../ProblemSolutionPage/ProblemSolutionPage";
 import Guide from "./Guide";
 import SearchDrawer from "../Search/SearchDrawer";
+import TextField from "../ProblemInput/index";
 
 const styles = theme => ({
   root: {
@@ -40,16 +41,15 @@ class Carousel extends React.Component {
       tutorialSteps: [
         {
           content: <div style={{ display: "flex", justifyContent: "center" }}>
-            <Guide changeHandler={this.handleNext} />
+            <Guide onTextChange = {this.handleTextChange}/>
           </div>,
         },
         {
           content: <ProblemSolutionPage textField="#Propositional Logic #Prove #Enter a problem" />,
         },
       ],
+      text: ""
     };
-    
-    this.handleNext = this.handleNext.bind(this);
   }
 
   handleNext = (hyp, goal) => {
@@ -75,25 +75,28 @@ class Carousel extends React.Component {
     this.setState({ activeStep });
   };
 
+  handleTextChange = (text) => {
+    this.setState({ text });
+  };
+
   render() {
     const { classes, theme } = this.props;
-    const { activeStep, tutorialSteps } = this.state;
+    const { activeStep, tutorialSteps, text } = this.state;
 
     const maxSteps = tutorialSteps.length;
 
     return (
       <div className={classes.root}>
         <SearchDrawer/>
+        <TextField value={text} onChange={this.handleTextChange}/>
         <SwipeableViews
           style={{ marginLeft: "30px", marginRight:"30px"}}
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={activeStep}
           onChangeIndex={this.handleStepChange}
-          //enableMouseEvents
         >
           {tutorialSteps.map((step, index) => (
             <div key={step.label}>
-            {console.log(step)}
               {Math.abs(activeStep - index) <= 2 ? (
                 <div className={classes.img}>{step.content}</div>
               ) : null}
@@ -101,49 +104,21 @@ class Carousel extends React.Component {
           ))}
         </SwipeableViews>
 
-        <Button
-          style={{
-            position: "absolute",
-            right: "90%",
-            top: "50%",
-            transform: "translate(-50%,-50%)",
-            transform: "translate3d(-50%,-50%,0)",
-          }}
-          onClick={this.handleBack}
-          disabled={activeStep === 0}
-        >
-          {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-        </Button>
-
-        <Button
-          style={{
-            position: "absolute",
-            left: "90%",
-            top: "50%",
-            transform: "translate(-50%,-50%)",
-            transform: "translate3d(-50%,-50%,0)",
-          }}
-          onClick={this.handleNext}
-          disabled={activeStep === maxSteps - 1}
-        >
-          {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-        </Button>
-
         <MobileStepper
           steps={maxSteps}
-          position="static"
+          position="bottom"
           activeStep={activeStep}
           className={classes.mobileStepper}
           nextButton={(
             <Button size="small" onClick={this.handleNext} disabled={activeStep === maxSteps - 1}>
-              Next
+              Solution Page
               {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </Button>
           )}
           backButton={(
             <Button size="small" onClick={this.handleBack} disabled={activeStep === 0}>
               {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-              Back
+              Problem Guide
             </Button>
           )}
         />

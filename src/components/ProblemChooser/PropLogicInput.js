@@ -2,37 +2,31 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ProbTypeCard from "./ProbTypeCard";
 
-
 class PropLogicInput extends Component {
   static propTypes = {
     handlerType: PropTypes.func.isRequired,
+    problemTypes: PropTypes.arrayOf(PropTypes.any)
   }
 
   render() {
-    const { handlerType } = this.props;
+    const { handlerType, problemTypes } = this.props;
 
     return (
       <div>
-        <ProbTypeCard
-          icon="./imagelocation"
-          title="Prove"
-          description={{
-            Hyp: "{A, A \\[Implies] B}",
-            Goal: "{B}",
-          }}
-          handlerType={handlerType}
-          index={0}
-        />
-        <ProbTypeCard
-          icon="nothing"
-          title="Simplification"
-          description={{
-            Hyp: "{A => B => C, B}",
-            Goal: "{B}",
-          }}
-          handlerType={handlerType}
-          index={1}
-        />
+        {
+          console.log(problemTypes)
+        }
+        {
+          problemTypes.map((prob, index) =>
+            <ProbTypeCard
+              icon={prob.icon}
+              title={prob.title}
+              description={prob.problem}
+              handlerType={handlerType}
+              index={index}
+            />
+          )
+        }
       </div>
 
     );
