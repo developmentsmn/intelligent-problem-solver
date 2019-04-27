@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import _ from "lodash";
 import ButtonBases from "./ButtonBases";
 import ProblemTypes from "./PropLogicInput";
+import SampleProblems from "./SampleProblemDisp";
 import { formatProblemAsJSON } from "../../libs/wolfram/text-replace";
 
 const pstyles = {
@@ -80,11 +81,13 @@ class Guide extends React.Component {
       );
     }
     if (activeStep === 2){
+      const { topic, problemType } = this.state;
+      console.log(this.data[topic])
       return (
         <Paper style={pstyles.Paper}>
-          <ProblemTypes 
-            handlerType={this.customizeProblem}
-            problemTypes={this.getProblemTypes()}
+          <SampleProblems 
+            handler={this.customizeProblem}
+            problemsArray={this.data[topic].ProblemTypes[problemType].SampleProblems}
           />
         </Paper>
       );
@@ -132,9 +135,10 @@ class Guide extends React.Component {
     });
   };
 
-  customizeProblem = (problem) => {
+  customizeProblem = (problemAttrs) => {
     const { activeStep, textFieldDefault, problemType} = this.state;
     const { onTextChange } = this.props;
+    const { description: problem} = problemAttrs;
     this.setState({
       activeStep: activeStep + 1,
       problemDefinition: problem,

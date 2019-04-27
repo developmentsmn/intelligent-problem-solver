@@ -6,9 +6,15 @@ export const decodeWolfram = (text) => {
         "\\[Equivalent]": "⇔",
         "\\[Not]": "¬",
     };
+
+    String.prototype.replaceAll = function(search, replacement) {
+        var target = this;
+        return target.split(search).join(replacement)
+    }
     const l1 = text.length;
     for (var key in map){
-        text = text.replace(key, map[key]);
+        text = text.replaceAll(key, map[key]);
+        
     }
     return {
         text,
