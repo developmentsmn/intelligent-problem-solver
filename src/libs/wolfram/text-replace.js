@@ -34,4 +34,14 @@ export const encodeWolfram = (text) => {
     return text;
 }
 
-export default {decodeWolfram, encodeWolfram};
+export const formatProblemAsJSON = (problem) => {
+    if (problem === null)
+        return "[Define your problem]";
+    var problemString = "";
+    for (var key in problem){
+        problemString = problemString + key + ": " + decodeWolfram(problem[key]).text + "\n";
+    }
+    return problemString;
+}
+
+export default {decodeWolfram, encodeWolfram, formatProblemAsJSON};

@@ -10,10 +10,11 @@ import Paper from "@material-ui/core/Paper";
 import _ from "lodash";
 import ButtonBases from "./ButtonBases";
 import ProblemTypes from "./PropLogicInput";
+import { formatProblemAsJSON } from "../../libs/wolfram/text-replace";
 
 const pstyles = {
   Paper: {
-    padding: 20, marginTop: 10, marginBottom: 10, height: 500, width: "50%", marginLeft: "auto", marginRight: "auto",
+    padding: 20, marginTop: 10, marginBottom: 50, width: "70%", marginLeft: "auto", marginRight: "auto",
   },
 };
 
@@ -43,6 +44,7 @@ class Guide extends React.Component {
       activeStep: 0,
       topic: "",
       problemType: "",
+      problemDefinition: null,
       textFieldDefault: ""
     };
 
@@ -72,6 +74,16 @@ class Guide extends React.Component {
         <Paper style={pstyles.Paper}>
           <ProblemTypes 
             handlerType={this.pickProblemType}
+            problemTypes={this.getProblemTypes()}
+          />
+        </Paper>
+      );
+    }
+    if (activeStep === 2){
+      return (
+        <Paper style={pstyles.Paper}>
+          <ProblemTypes 
+            handlerType={this.customizeProblem}
             problemTypes={this.getProblemTypes()}
           />
         </Paper>
@@ -120,16 +132,27 @@ class Guide extends React.Component {
     });
   };
 
+  customizeProblem = (problem) => {
+    const { activeStep, textFieldDefault, problemType} = this.state;
+    const { onTextChange } = this.props;
+    this.setState({
+      activeStep: activeStep + 1,
+      problemDefinition: problem,
+      textFieldDefault: textFieldDefault + "#"+ problemType + "\n#"+ formatProblemAsJSON(problem)
+    });
+    onTextChange(textFieldDefault + "#"+ problemType + "\n#"+ formatProblemAsJSON(problem));
+  }
+
   pickProblemType = (data) => {
-    const { title: type, description: sampleProblem } = data;
-    const { activeStep, textFieldDefault } = this.state;
+    const { title: type } = data;
+    const { activeStep, textFieldDefault }= this.state;
     const { onTextChange } = this.props;
     this.setState({
       activeStep: activeStep + 1,
       problemType: type,
-      textFieldDefault: textFieldDefault + "#"+ type + "\n#"+ sampleProblem
+      textFieldDefault: textFieldDefault + "#"+ type + "\n#"+ formatProblemAsJSON(null)
     });
-    onTextChange(textFieldDefault + "#"+ type + "\n#"+ sampleProblem);
+    onTextChange(textFieldDefault + "#"+ type + "\n#"+ formatProblemAsJSON(null));
   };
 
   pickTopic = (index) => {
@@ -138,9 +161,9 @@ class Guide extends React.Component {
     this.setState({
       activeStep: activeStep + 1,
       topic: this.topics[index].title,
-      textFieldDefault: textFieldDefault + "#"+ this.topics[index].title + "\n"
+      textFieldDefault: textFieldDefault + "#"+ this.topics[index].title +" "
     });
-    onTextChange(textFieldDefault + "#"+ this.topics[index].title + "\n");
+    onTextChange(textFieldDefault + "#"+ this.topics[index].title + " ");
   };
 
   onSubmit = (text) => {
