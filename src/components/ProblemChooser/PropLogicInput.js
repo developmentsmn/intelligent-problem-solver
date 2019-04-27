@@ -14,9 +14,6 @@ class PropLogicInput extends Component {
     return (
       <div>
         {
-          console.log(problemTypes)
-        }
-        {
           problemTypes.map((prob, index) =>
             <ProbTypeCard
               icon={prob.icon}
