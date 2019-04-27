@@ -6,12 +6,12 @@
                 "Link": "https://www.wolframcloud.com/objects/caf4bc01-7da0-4709-bd87-3e31f7ccfbce",
                 "SampleProblems":[
                     {
-                        "Hypothesis": "{A, A \\[Implies] B}",
-                        "Goal": "{B}"
+                        "Hypothesis": "{P \\[Implies]  Q, R \\[Or] \\[Not] Q, (\\[Not] W) \\[Implies] \\[Not]R}",
+                        "Goal": " {P \\[Implies] W}"
                     },
                     {
-                        "Hypothesis": "{P \\[Implies] Q, R \\[Or] \\[Not]Q, (\\[Not]W) \\[Implies] \\[Not]R}",
-                        "Goal": " {P \\[Implies] W}"
+                        "Hypothesis": "{A, A \\[Implies] B}",
+                        "Goal": "{B}"
                     },
                     {
                         "Hypothesis": "{A \\[Implies] (B \\[Implies] C), A \\[Or] \\[Not]D,B,D}",
