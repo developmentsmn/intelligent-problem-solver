@@ -15,7 +15,11 @@ class ProbTypeCard extends Component {
     handlerType: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
     description: PropTypes.shape().isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
+  }
+
+  static defaultProps = {
+    title: ""
   }
 
   getContent = () => {
