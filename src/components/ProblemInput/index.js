@@ -59,8 +59,17 @@ class VirtualKeyboard extends Component {
     const { layoutName } = this.state;
 
     return (
+
       <div className={classes.root}>
+        <div>
+          <img 
+            src ="https://firebasestorage.googleapis.com/v0/b/intelligentproblemsolver.appspot.com/o/Logo.png?alt=media&token=c8378690-0aea-4706-806a-5fdfe979a71d"
+            alt="new"
+            style={{width:"90%", height:"125px"}}/>
+        </div>
+
         <div className={classes.TextField}>
+
           <ProblemTextField
             value={value}
             onChange={e => this.onChangeInput(e)}
