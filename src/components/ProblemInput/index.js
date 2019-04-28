@@ -63,7 +63,7 @@ class VirtualKeyboard extends Component {
       <div className={classes.root}>
         <div>
           <img 
-            src ="https://firebasestorage.googleapis.com/v0/b/intelligentproblemsolver.appspot.com/o/Logo.png?alt=media&token=c8378690-0aea-4706-806a-5fdfe979a71d"
+            src = "https://firebasestorage.googleapis.com/v0/b/intelligentproblemsolver.appspot.com/o/Logo.png?alt=media&token=dbc07b79-53c9-4581-914f-a34344eced57"
             alt="new"
             style={{width:"90%", height:"125px"}}/>
         </div>
