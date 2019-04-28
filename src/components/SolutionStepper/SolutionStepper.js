@@ -94,52 +94,72 @@ class VerticalLinearStepper extends React.Component {
   };
 
   render() {
-    const { classes, stepList } = this.props;
+    const { classes, stepList, topic } = this.props;
     const { activeStep } = this.state;
 
-    return (
-      <div className={classes.root}>
-        <Stepper classes={{ root: classes.stepper }} activeStep={activeStep} orientation="vertical">
-          {stepList.map((item, index) => {
-            return (
-              <Step key={item}>
-                <StepLabel>{`Step ${index + 1}`}</StepLabel>
-                <StepContent>
-                  {this.getStepContent(index)}
-                  <div className={classes.actionsContainer}>
-                    <div>
-                      <Button
-                        disabled={activeStep === 0}
-                        onClick={this.handleBack}
-                        className={classes.button}
-                      >
-                        Back
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={this.handleNext}
-                        className={classes.button}
-                      >
-                        {activeStep === stepList.length - 1 ? "Finish" : "Next"}
-                      </Button>
+    //when comparing to "Prove ", remember it has a whitespace
+    console.log(topic);
+    if(topic === "Prove ")
+    {
+      return (
+        <div className={classes.root}>
+          <Stepper classes={{ root: classes.stepper }} activeStep={activeStep} orientation="vertical">
+            {stepList.map((item, index) => {
+              return (
+                <Step key={item}>
+                  <StepLabel>{`Step ${index + 1}`}</StepLabel>
+                  <StepContent>
+                    {this.getStepContent(index)}
+                    <div className={classes.actionsContainer}>
+                      <div>
+                        <Button
+                          disabled={activeStep === 0}
+                          onClick={this.handleBack}
+                          className={classes.button}
+                        >
+                          Back
+                        </Button>
+                        <Button
+                          disabled={activeStep === 0}
+                          onClick={this.handleBack}
+                          className={classes.button}
+                        >
+                          Explain
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={this.handleNext}
+                          className={classes.button}
+                        >
+                          {activeStep === stepList.length - 1 ? "Finish" : "Next"}
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                </StepContent>
-              </Step>
-            );
-          })}
-        </Stepper>
-        {activeStep === stepList.length && (
-          <Paper square elevation={0} className={classes.resetContainer}>
-            <Typography>All steps completed - you&apos;re finished</Typography>
-            <Button onClick={this.handleReset} className={classes.button}>
-              Reset
-            </Button>
-          </Paper>
-        )}
-      </div>
-    );
+                  </StepContent>
+                </Step>
+              );
+            })}
+          </Stepper>
+          {activeStep === stepList.length && (
+            <Paper square elevation={0} className={classes.resetContainer}>
+              <Typography>All steps completed - you&apos;re finished</Typography>
+              <Button onClick={this.handleReset} className={classes.button}>
+                Reset
+              </Button>
+            </Paper>
+          )}
+        </div>
+      );
+    }
+    else
+    {
+      return (
+        <div>
+        </div>
+      )
+    }
+    
   }
 }
 

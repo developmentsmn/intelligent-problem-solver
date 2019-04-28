@@ -12,6 +12,7 @@ class VirtualKeyboard extends Component {
   static propTypes = {
     classes: PropTypes.shape().isRequired,
     onSubmit: PropTypes.func,
+    textField: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -20,13 +21,16 @@ class VirtualKeyboard extends Component {
 
   state = {
     layoutName: "default",
-    input: "",
+    input: this.props.textField,
   };
 
+  componentDidUpdate(){
+    this.keyboard.setInput(this.props.value);
+  }
+
   onChange = (input) => {
-    this.setState({
-      input,
-    });
+    this.keyboard.setInput(input);
+    this.props.onChange(input);
   };
 
   onKeyPress = (button) => {
@@ -45,35 +49,31 @@ class VirtualKeyboard extends Component {
   };
 
   onChangeInput = (event) => {
+    this.keyboard.setInput(input);
     const input = event.target.value;
-    this.setState(
-      {
-        input,
-      },
-      () => {
-        this.keyboard.setInput(input);
-      },
-    );
+    this.props.onChange(input);
   };
 
   render() {
-    const { classes, onSubmit } = this.props;
-    const { input, layoutName } = this.state;
-    return (
-      <div>
-        <ProblemTextField
-          value={input}
-          onChange={e => this.onChangeInput(e)}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={() => { onSubmit(input); }}
-        >
-          Submit
+    const { classes, onSubmit, value } = this.props;
+    const { layoutName } = this.state;
 
-        </Button>
+    return (
+      <div className={classes.root}>
+        <div className={classes.TextField}>
+          <ProblemTextField
+            value={value}
+            onChange={e => this.onChangeInput(e)}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={onSubmit}
+          >
+            Submit
+          </Button>
+        </div> 
         <Keyboard
           ref={(r) => { this.keyboard = r; return r; }}
           onChange={inputKB => this.onChange(inputKB)}
@@ -81,20 +81,15 @@ class VirtualKeyboard extends Component {
           theme="hg-theme-default hg-layout-default myTheme"
           layoutName={layoutName}
           display={{
-            "\\land": "∧",
-            "\\lor": "∨",
-            "\\Rightarrow": "⇒",
-            "\\Leftrightarrow": "⇔",
-            "\\neg": "¬",
             "{Letters}": "Letters",
             "{Math}": "Math",
             "{bksp}": "←",
           }}
           layout={{
             default: [
-              "A B C D E F {bksp}",
-              "\\neg \\land \\lor \\Rightarrow \\Leftrightarrow",
-              "{Letters} { } ( )",
+              "0 1 2 3 4 5 6 7 8 9 {bksp}",
+              "¬ ∧ ∨ ⇒ ⇔ { } ( ) ,",
+              "{Letters} A B C D E F"
             ],
             letters: [
               "~ ! @ # $ % ^ & * ( ) _ + {bksp}",
@@ -114,6 +109,7 @@ class VirtualKeyboard extends Component {
               buttons: "Q q",
             },
           ]}
+          className={classes.Keyboard}
         />
       </div>
     );

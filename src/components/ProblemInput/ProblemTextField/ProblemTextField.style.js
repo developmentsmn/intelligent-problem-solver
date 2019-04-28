@@ -1,10 +1,9 @@
 export default theme => ({
   root: {
-    display: "flex",
-    flexWrap: "wrap",
+    marginTop: theme.spacing.unit,
+    flexGrow: 9
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    fontFamily: '"Lucida Console", Monaco, monospace'
   },
 });
