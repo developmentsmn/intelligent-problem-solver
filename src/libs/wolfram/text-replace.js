@@ -5,6 +5,7 @@ export const decodeWolfram = (text) => {
         "\\[Or]": "∨",
         "\\[Equivalent]": "⇔",
         "\\[Not]": "¬",
+        "->":"→"
     };
 
     String.prototype.replaceAll = function(search, replacement) {
@@ -29,6 +30,7 @@ export const encodeWolfram = (text) => {
         "\\[Or]": "∨",
         "\\[Equivalent]": "⇔",
         "\\[Not]": "¬",
+        "->":"→"
     };
 
     String.prototype.replaceAll = function(search, replacement) {

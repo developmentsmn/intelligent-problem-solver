@@ -18,6 +18,7 @@ class ProblemSolutionPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     this.setState({
       textField: nextProps.textField,
     });

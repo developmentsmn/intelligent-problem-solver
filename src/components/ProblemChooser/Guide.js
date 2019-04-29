@@ -144,11 +144,11 @@ class Guide extends React.Component {
     var text = "";
     if (activeStep === 0){
     } else if (activeStep === 1){
-      text = text + "#" + topic + "\n";
+      text = text + "#" + topic + " ";
     } else if (activeStep === 2){
-      text = text + "#" + topic + "\n#" + problemType + "\n#" + formatProblemAsJSON(null);
+      text = text + "#" + topic + " #" + problemType + "\n" + formatProblemAsJSON(null);
     } else {
-      text = text + "#" + topic + "\n#" + problemType + "\n#" + formatProblemAsJSON(problemDefinition);
+      text = text + "#" + topic + " #" + problemType + "\n" + formatProblemAsJSON(problemDefinition);
       this.setState({
         activeStep: activeStep-1,
       });

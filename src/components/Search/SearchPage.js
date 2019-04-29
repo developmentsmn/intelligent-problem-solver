@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import SearchIcon from '@material-ui/icons/Search';
+import { decodeWolfram } from "../../libs/wolfram/text-replace";
 
 const styles = theme => ({
     root: {
@@ -54,7 +55,7 @@ class Search extends React.Component {
 
                     for(var i = 0; i < result.hits.length; i++)
                     {
-                        searchResults.push({ topic: result.hits[i].objectID, content: result.hits[i].Content })
+                        searchResults.push({ topic: result.hits[i].objectID, content: decodeWolfram(result.hits[i].Content).text })
                     }
                         
                     this.setState({

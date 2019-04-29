@@ -38,6 +38,7 @@ class Carousel extends React.Component {
 
     this.state = {
       activeStep: 0,
+      text: "",
       tutorialSteps: [
         {
           content: <div style={{ display: "flex", justifyContent: "center" }}>
@@ -45,10 +46,9 @@ class Carousel extends React.Component {
           </div>,
         },
         {
-          content: <ProblemSolutionPage textField="#Propositional Logic #Prove #Enter a problem" />,
+          content: <ProblemSolutionPage textField=""/>,
         },
       ],
-      text: ""
     };
   }
 
@@ -79,6 +79,10 @@ class Carousel extends React.Component {
     this.setState({ text });
   };
 
+  onSubmit = () => {
+
+  }
+
   render() {
     const { classes, theme } = this.props;
     const { activeStep, tutorialSteps, text } = this.state;
@@ -88,7 +92,11 @@ class Carousel extends React.Component {
     return (
       <div className={classes.root}>
         <SearchDrawer/>
-        <TextField value={text} onChange={this.handleTextChange}/>
+        <TextField 
+          value={text} 
+          onChange={this.handleTextChange}
+          onSubmit={this.onSubmit}
+        />
         <SwipeableViews
           style={{ marginLeft: "30px", marginRight:"30px"}}
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
