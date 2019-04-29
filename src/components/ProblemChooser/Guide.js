@@ -29,6 +29,7 @@ const styles = theme => ({
   instructions: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
+    fontSize: theme.spacing.unit * 3
   },
 });
 
@@ -36,7 +37,7 @@ class Guide extends React.Component {
 
   data = require("./guide-data.json");
   topics = [];
-  steps = ["Choose Problem Topic","Choose Problem Solution Type","Enter your problem!"];
+  steps = ["Pick a Topic","Pick a Problem Type","Define Your Problem"];
 
   constructor(props) {
     super(props);
@@ -46,7 +47,6 @@ class Guide extends React.Component {
       topic: "",
       problemType: "",
       problemDefinition: null,
-      textFieldDefault: ""
     };
 
     for (var key in this.data) {
@@ -80,7 +80,7 @@ class Guide extends React.Component {
         </Paper>
       );
     }
-    if (activeStep === 2){
+    if (activeStep >= 2){
       const { topic, problemType } = this.state;
       console.log(this.data[topic])
       return (
@@ -120,84 +120,81 @@ class Guide extends React.Component {
   };
 
   handleBack = () => {
-    const { activeStep, textFieldDefault } = this.state;
+    const { activeStep } = this.state;
     const { onTextChange } = this.props;
     this.setState({
       activeStep: activeStep-1,
-      textFieldDefault: textFieldDefault.substring(0, textFieldDefault.lastIndexOf("#"))
+    }, () => {
+      onTextChange(this.getTextFromState());
     });
-    onTextChange(textFieldDefault.substring(0, textFieldDefault.lastIndexOf("#")));
   };
 
   handleReset = () => {
+    const { onTextChange } = this.props;
     this.setState({
       activeStep: 0,
+    }, () => {
+      onTextChange(this.getTextFromState());
     });
   };
 
+  getTextFromState = () => {
+    const { activeStep, topic, problemType, problemDefinition } = this.state;
+    console.log(activeStep);
+    var text = "";
+    if (activeStep === 0){
+    } else if (activeStep === 1){
+      text = text + "#" + topic + "\n";
+    } else if (activeStep === 2){
+      text = text + "#" + topic + "\n#" + problemType + "\n#" + formatProblemAsJSON(null);
+    } else {
+      text = text + "#" + topic + "\n#" + problemType + "\n#" + formatProblemAsJSON(problemDefinition);
+      this.setState({
+        activeStep: activeStep-1,
+      });
+    }
+    return text;
+  }
+
   customizeProblem = (problemAttrs) => {
-    const { activeStep, textFieldDefault, problemType} = this.state;
+    const { activeStep } = this.state;
     const { onTextChange } = this.props;
     const { description: problem} = problemAttrs;
     this.setState({
-      activeStep: activeStep + 1,
+      activeStep: activeStep+1,
       problemDefinition: problem,
-      textFieldDefault: textFieldDefault + "#"+ problemType + "\n#"+ formatProblemAsJSON(problem)
+    }, () => {
+      onTextChange(this.getTextFromState());
     });
-    onTextChange(textFieldDefault + "#"+ problemType + "\n#"+ formatProblemAsJSON(problem));
   }
 
   pickProblemType = (data) => {
     const { title: type } = data;
-    const { activeStep, textFieldDefault }= this.state;
+    const { activeStep }= this.state;
     const { onTextChange } = this.props;
     this.setState({
       activeStep: activeStep + 1,
       problemType: type,
-      textFieldDefault: textFieldDefault + "#"+ type + "\n#"+ formatProblemAsJSON(null)
+    }, () => {
+      onTextChange(this.getTextFromState());
     });
-    onTextChange(textFieldDefault + "#"+ type + "\n#"+ formatProblemAsJSON(null));
   };
 
   pickTopic = (index) => {
-    const { activeStep, textFieldDefault } = this.state;
+    const { activeStep } = this.state;
     const { onTextChange } = this.props;
     this.setState({
       activeStep: activeStep + 1,
       topic: this.topics[index].title,
-      textFieldDefault: textFieldDefault + "#"+ this.topics[index].title +" "
+    }, () => {
+      onTextChange(this.getTextFromState());
     });
-    onTextChange(textFieldDefault + "#"+ this.topics[index].title + " ");
-  };
-
-  onSubmit = (text) => {
-    const { changeHandler } = this.props;
-    const map = {
-      "#Propositional Logic": 0,
-      "#Binary Relations":1
-    };
-
-    if(text === "#Propositional Logic")
-    {
-      //0 is for propositional logic
-      this.handler(map[text]);
-    }
-    else if(text === "#Binary Relations")
-    {
-      //1 is for binary relation
-      this.handler(1);
-    }
-    else if(text.includes("#Propositional Logic #Prove"))
-    {
-      let textArray = text.split('#');
-      changeHandler(textArray[3],"");
-    }
   };
 
   render() {
     const { classes } = this.props;
     const steps = this.steps;
-    const { activeStep, textFieldDefault } = this.state;
+    const { activeStep } = this.state;
 
     return (
       <div className={classes.root}>
@@ -214,16 +211,6 @@ class Guide extends React.Component {
         </Stepper>
 
         <div>
-          {activeStep === steps.length ? (
-            <div>
-              <Typography className={classes.instructions}>
-                All steps completed - you&apos;re finished
-              </Typography>
-              <Button onClick={this.handleReset} className={classes.button}>
-                Reset
-              </Button>
-            </div>
-          ) : (
             <div>
               <Typography className={classes.instructions}>{steps[activeStep]}</Typography>
               <div>
@@ -232,15 +219,25 @@ class Guide extends React.Component {
                   disabled={activeStep === 0}
                   onClick={this.handleBack}
                   className={classes.button}
-                  color="secondary"
+                  color="primary"
                   variant="contained"
                 >
                   Back
                 </Button>
-                {this.getContent(activeStep)}
+                <Button
+                  disabled={activeStep === 0}
+                  onClick={this.handleReset}
+                  className={classes.button}
+                  color="secondary"
+                  variant="contained"
+                >
+                  Reset
+                </Button>
+                
               </div>
+              {this.getContent(activeStep)}
             </div>
-          )}
+          
         </div>
       </div>
     );
