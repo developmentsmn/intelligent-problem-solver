@@ -1,7 +1,10 @@
 export default theme => ({
+
+
   root:{
     display: "flex",
     flexDirection: "column",
+    alignItems: "center"
   },
   button: {
     marginLeft: theme.spacing.unit,
@@ -12,9 +15,17 @@ export default theme => ({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    marginBottom: theme.spacing.unit
+    marginBottom: theme.spacing.unit,
+    width: "90%",
+
   },
+  
+  
+
   Keyboard:{
     width: "100%",
+  
   }
+
+
 });

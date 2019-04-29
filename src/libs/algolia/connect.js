@@ -30,6 +30,8 @@ const searchResult = async (query) => {
           const childData = doc.data();
 
           childData.objectID = childKey;
+          childData.term = childKey;
+          console.log(childData);
 
           records.push(childData);
         });
