@@ -10,8 +10,6 @@ class ProblemTextField extends Component {
     classes: PropTypes.shape().isRequired,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    textField: PropTypes.string.isRequired,
-    textFieldHandler: PropTypes.func.isRequired,
   }
 
   static defaultProps = {

@@ -11,7 +11,7 @@ import {decodeWolfram} from "../../libs/wolfram/text-replace";
 
 class ProbTypeCard extends Component {
   static propTypes = {
-    icon: PropTypes.string.isRequired,
+    icon: PropTypes.string,
     handlerType: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
     description: PropTypes.shape().isRequired,
@@ -19,7 +19,8 @@ class ProbTypeCard extends Component {
   }
 
   static defaultProps = {
-    title: ""
+    title: "",
+    icon: ""
   }
 
   getContent = () => {
@@ -66,7 +67,7 @@ class ProbTypeCard extends Component {
             <Typography component="p">
               {
                 this.getContent().map((item, index) => 
-                  <div>
+                  <div key={index}>
                     {`${item.key}: ${item.problem}`}
                     <br/>
                   </div>

@@ -1,15 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import axios from "axios";
 import MobileStepper from "@material-ui/core/MobileStepper";
 import Button from "@material-ui/core/Button";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
-import ProblemSolutionPage from "../ProblemSolutionPage/ProblemSolutionPage";
 import Guide from "./Guide";
 import SearchDrawer from "../Search/SearchDrawer";
 import TextField from "../ProblemInput/index";
+import { encodeWolfram } from "../../libs/wolfram/text-replace";
 
 const styles = theme => ({
   root: {
@@ -46,23 +47,18 @@ class Carousel extends React.Component {
           </div>,
         },
         {
-          content: <ProblemSolutionPage textField=""/>,
+          content: <div/>,
         },
       ],
     };
   }
 
-  handleNext = (hyp, goal) => {
+  data = require("./guide-data.json");
 
-    let newArray = this.state.tutorialSteps.map(l => Object.assign({}, l));
-
-    newArray[1].content = <ProblemSolutionPage textField={`#Propositional Logic #Prove #{${hyp},${goal}}`} />;
-
+  handleNext = () => {
     this.setState(prevState => ({
       activeStep: prevState.activeStep + 1,
     }));
-
-    this.setState({tutorialSteps: newArray}, () => {console.log("UPDATED STATE ", this.state.tutorialSteps[1].content)});
   };
 
   handleBack = () => {
@@ -79,14 +75,79 @@ class Carousel extends React.Component {
     this.setState({ text });
   };
 
-  onSubmit = () => {
+  parseText = (text) => {
+    text = text.replace("\n", "#");
+    var arr = text.split("#");
+    if (arr.length < 4)
+      return undefined;
 
+    const parseProblem = (problemText) => {
+      let fromIndex = 0;
+      let colonIndex = problemText.indexOf(":", fromIndex);
+      let res = {};
+      while (colonIndex !== -1){
+        let newlineIndex = problemText.indexOf("\n", colonIndex);
+        if (newlineIndex === -1)
+          newlineIndex = problemText.length;
+        let key = problemText.substring(fromIndex, colonIndex).trim();
+        let value = encodeWolfram(problemText.substring(colonIndex+1, newlineIndex).trim());
+        res[key] = value;
+        fromIndex = newlineIndex + 1;
+        colonIndex = problemText.indexOf(":", fromIndex);
+      }
+      return res;
+    };
+
+    const res = {
+      topic: arr[1].trim(),
+      problemType: arr[2].trim(),
+      problemDefinition: parseProblem(arr[3].trim())
+    };
+    return res;
+  }
+
+  onSubmit = () => {
+    const { text } = this.state;
+    const submissionInfo = this.parseText(text);
+    const { topic, problemType, problemDefinition } = submissionInfo;
+    const link = this.data[topic].ProblemTypes[problemType].Link;
+    console.log(JSON.stringify(problemDefinition));
+
+    const submitToWolfram = async (problem, link) => {
+      const result = await axios.get(link, {
+        params: {
+          problem
+        },
+      });
+      return {
+        Success: result.data.Success,
+        Result: result.data.Result
+      };
+    };
+
+    submitToWolfram(problemDefinition, link)
+    .then(res => {
+      if (res.Success === false)
+        return new Promise((resolve, reject) => reject("Error fetching results from Wolfram."));
+      else {
+        const { tutorialSteps, activeStep } = this.state;
+        const SolutionPanel = React.lazy(() => import("../../components/SolutionDisplay/"+topic+"/"+problemType));
+        tutorialSteps[1].content = (
+          <React.Suspense fallback={<div>Loading results...</div>}>
+            <SolutionPanel dataString={res.Result}/>
+          </React.Suspense> 
+        );
+        this.setState({activeStep: activeStep+1,tutorialSteps});
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   render() {
     const { classes, theme } = this.props;
     const { activeStep, tutorialSteps, text } = this.state;
-
     const maxSteps = tutorialSteps.length;
 
     return (
@@ -104,7 +165,7 @@ class Carousel extends React.Component {
           onChangeIndex={this.handleStepChange}
         >
           {tutorialSteps.map((step, index) => (
-            <div key={step.label}>
+            <div key={index}>
               {Math.abs(activeStep - index) <= 2 ? (
                 <div className={classes.img}>{step.content}</div>
               ) : null}

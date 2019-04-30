@@ -60,7 +60,7 @@ class Guide extends React.Component {
   getContent = (activeStep) => {
     if (activeStep === 0){
       return ( 
-        <Grid container sm>
+        <Grid container>
           <Paper style={pstyles.Paper}>
             <ButtonBases 
               handler={this.pickTopic}
@@ -82,7 +82,6 @@ class Guide extends React.Component {
     }
     if (activeStep >= 2){
       const { topic, problemType } = this.state;
-      console.log(this.data[topic])
       return (
         <Paper style={pstyles.Paper}>
           <SampleProblems 
@@ -140,7 +139,6 @@ class Guide extends React.Component {
 
   getTextFromState = () => {
     const { activeStep, topic, problemType, problemDefinition } = this.state;
-    console.log(activeStep);
     var text = "";
     if (activeStep === 0){
     } else if (activeStep === 1){
