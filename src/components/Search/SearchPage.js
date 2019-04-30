@@ -119,12 +119,12 @@ class Search extends React.Component {
                         </TableHead>
                         <TableBody>
                         {this.state.data.map(row => (
-                            <TableRow>
+                            <TableRow key={row.topic}>
                                 <TableCell>{row.topic}</TableCell>
                                 <TableCell>
-                                    {row.content.split('\\n').map(function(item) {
+                                    {row.content.split('\\n').map(function(item, index) {
                                         return(
-                                            <span>
+                                            <span key={index}>
                                                 {item}
                                                 <br/>
                                             </span>

@@ -3,7 +3,7 @@
         "URL": "http://www.free-icons-download.net/images/implies-83546.png",
         "ProblemTypes":{
             "Prove":{
-                "Link": "https://www.wolframcloud.com/objects/caf4bc01-7da0-4709-bd87-3e31f7ccfbce",
+                "Link": "https://www.wolframcloud.com/objects/5792c77c-f1eb-4475-bcf0-ffceddf9dfec",
                 "SampleProblems":[
                     {
                         "Hypothesis": "{P \\[Implies]  Q, R \\[Or] \\[Not] Q, (\\[Not] W) \\[Implies] \\[Not]R}",
@@ -15,7 +15,7 @@
                     },
                     {
                         "Hypothesis": "{A \\[Implies] (B \\[Implies] C), A \\[Or] \\[Not]D,B,D}",
-                        "Goal": " {P \\[Implies] W}"
+                        "Goal": "{C}"
                     }
                 ]
             },

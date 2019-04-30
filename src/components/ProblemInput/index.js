@@ -12,7 +12,7 @@ class VirtualKeyboard extends Component {
   static propTypes = {
     classes: PropTypes.shape().isRequired,
     onSubmit: PropTypes.func,
-    textField: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
   }
 
   static defaultProps = {

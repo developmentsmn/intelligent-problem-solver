@@ -16,6 +16,7 @@ class PropLogicInput extends Component {
         {
           problemTypes.map((prob, index) =>
             <ProbTypeCard
+              key={index}
               icon={prob.icon}
               title={prob.title}
               description={prob.problem}
