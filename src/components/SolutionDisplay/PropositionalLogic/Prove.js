@@ -62,6 +62,8 @@ class VerticalLinearStepper extends React.Component {
   /* \{ \{A \Rightarrow (B \Rightarrow C), A \lor \neg D,B,D \}, \{C\} \} */
   getStepContent = (step) => {
     const { stepList } = this.state;
+    if (stepList[0] === "")
+      return <h2>Not a truth statement</h2>
     return (
       <div>
         <span>
