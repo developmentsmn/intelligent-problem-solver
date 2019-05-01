@@ -111,7 +111,6 @@ class Carousel extends React.Component {
     const submissionInfo = this.parseText(text);
     const { topic, problemType, problemDefinition } = submissionInfo;
     const link = this.data[topic].ProblemTypes[problemType].Link;
-    console.log(JSON.stringify(problemDefinition));
 
     const submitToWolfram = async (problem, link) => {
       const result = await axios.get(link, {
@@ -137,7 +136,7 @@ class Carousel extends React.Component {
             <SolutionPanel dataString={res.Result}/>
           </React.Suspense> 
         );
-        this.setState({activeStep: activeStep+1,tutorialSteps});
+        this.setState({activeStep: 1,tutorialSteps});
       }
     })
     .catch(err => {
