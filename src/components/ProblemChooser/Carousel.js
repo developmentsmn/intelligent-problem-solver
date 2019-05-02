@@ -26,7 +26,8 @@ const styles = theme => ({
   },
   img: {
     height: "100%",
-    display: "block",
+    display: "flex",
+    justifyContent: "center",
     // maxWidth: 400,
     overflow: "hidden",
     width: "100%",
@@ -42,7 +43,7 @@ class Carousel extends React.Component {
       text: "",
       tutorialSteps: [
         {
-          content: <div style={{ display: "flex", justifyContent: "center" }}>
+          content: <div style={{ display: "flex", justifyContent: "center", width: "100%"}}>
             <Guide onTextChange = {this.handleTextChange}/>
           </div>,
         },
@@ -129,13 +130,19 @@ class Carousel extends React.Component {
       if (res.Success === false)
         return new Promise((resolve, reject) => reject("Error fetching results from Wolfram."));
       else {
-        const { tutorialSteps, activeStep } = this.state;
-        const SolutionPanel = React.lazy(() => import("../../components/SolutionDisplay/"+topic+"/"+problemType));
-        tutorialSteps[1].content = (
-          <React.Suspense fallback={<div>Loading results...</div>}>
-            <SolutionPanel dataString={res.Result}/>
-          </React.Suspense> 
-        );
+        const { tutorialSteps } = this.state;
+        console.log("../../components/SolutionDisplay/"+topic+"/"+problemType);
+        import("../../components/SolutionDisplay/"+topic+"/"+problemType)
+        .then(component => {
+          const SolutionPanel = component.default;
+          tutorialSteps[1].content = <SolutionPanel dataString={res.Result}/>;
+          this.setState({activeStep: 1,tutorialSteps});
+        })
+        .catch(err => {
+          tutorialSteps[1].content = <h1>This solver is not available at this time.</h1>;
+          this.setState({activeStep: 1,tutorialSteps});
+        })
+        tutorialSteps[1].content = <h1>Loading results...</h1>;
         this.setState({activeStep: 1,tutorialSteps});
       }
     })
@@ -158,7 +165,7 @@ class Carousel extends React.Component {
           onSubmit={this.onSubmit}
         />
         <SwipeableViews
-          style={{ marginLeft: "30px", marginRight:"30px"}}
+          style={{ marginLeft: "30px", marginRight:"30px", minWidth:"700px"}}
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={activeStep}
           onChangeIndex={this.handleStepChange}

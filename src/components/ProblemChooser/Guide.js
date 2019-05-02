@@ -12,6 +12,7 @@ import ButtonBases from "./ButtonBases";
 import ProblemTypes from "./PropLogicInput";
 import SampleProblems from "./SampleProblemDisp";
 import { formatProblemAsJSON } from "../../libs/wolfram/text-replace";
+import Page from "../Page/ScrollPaper";
 
 const pstyles = {
   Paper: {
@@ -211,7 +212,7 @@ class Guide extends React.Component {
         <div>
             <div>
               <Typography className={classes.instructions}>{steps[activeStep]}</Typography>
-              <div>
+              <div style={{marginBottom:"24px"}}>
 
                 <Button
                   disabled={activeStep === 0}
@@ -233,7 +234,9 @@ class Guide extends React.Component {
                 </Button>
                 
               </div>
-              {this.getContent(activeStep)}
+              <Page>
+                {this.getContent(activeStep)}
+              </Page>
             </div>
           
         </div>

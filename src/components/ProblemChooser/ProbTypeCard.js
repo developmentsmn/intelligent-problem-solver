@@ -64,11 +64,11 @@ class ProbTypeCard extends Component {
             <Typography gutterBottom variant="h5" component="h2">
               {title}
             </Typography>
-            <Typography component="p">
+            <Typography style={{textAlign:"left", paddingLeft: "10px"}} component="p">
               {
                 this.getContent().map((item, index) => 
                   <div key={index}>
-                    {`${item.key}: ${item.problem}`}
+                    <b>{`${item.key}:`}</b> {`${item.problem}`}
                     <br/>
                   </div>
                 )
