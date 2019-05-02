@@ -1,5 +1,6 @@
 import React from "react";
 import Connect from "../../libs/algolia/connect";
+import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -14,12 +15,17 @@ import { decodeWolfram } from "../../libs/wolfram/text-replace";
 const styles = theme => ({
     root: {
       width: '100%',
-      marginTop: theme.spacing.unit * 3,
-      overflowX: 'auto',
+      padding: theme.spacing.unit * 3,
     },
     table: {
-      minWidth: 700,
+      minWidth: 50,
+      width:"100%"
     },
+    searchBox: {
+        justifyContent: 'center',
+        display: 'flex',
+        alignItems: 'center'
+    }
   });
   
 
@@ -74,11 +80,10 @@ class Search extends React.Component {
     render() {
 
         const { input } = this.state;
-        
+        const { classes } = this.props;
         return(
-            <div>
-                <h1>Dictionary</h1>
-                <div style={{textAlign: 'center'}}>
+            <div className={classes.root}>
+                <div className={classes.searchBox}>
                     <TextField
                         value={input}
                         label="Search"
@@ -142,4 +147,4 @@ class Search extends React.Component {
     }
 }
 
-export default Search;
+export default withStyles(styles)(Search);

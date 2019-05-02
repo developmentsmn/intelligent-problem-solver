@@ -16,7 +16,7 @@ import Page from "../Page/ScrollPaper";
 
 const pstyles = {
   Paper: {
-    padding: 20, marginTop: 10, marginBottom: 50, width: "70%", marginLeft: "auto", marginRight: "auto",
+    padding: 20, marginTop: 10, marginBottom: 50, width: "100%",maxWidth: "700px", marginLeft: "auto", marginRight: "auto",
   },
 };
 

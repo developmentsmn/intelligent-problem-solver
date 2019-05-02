@@ -158,14 +158,13 @@ class Carousel extends React.Component {
 
     return (
       <div className={classes.root}>
-        <SearchDrawer/>
         <TextField 
           value={text} 
           onChange={this.handleTextChange}
           onSubmit={this.onSubmit}
         />
         <SwipeableViews
-          style={{ marginLeft: "30px", marginRight:"30px", minWidth:"700px"}}
+          style={{ width: "100%", minWidth:"700px"}}
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={activeStep}
           onChangeIndex={this.handleStepChange}
