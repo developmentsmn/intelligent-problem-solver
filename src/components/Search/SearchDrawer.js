@@ -72,7 +72,7 @@ const styles = theme => ({
 class SearchDrawer extends React.Component {
 
   render() {
-    const { classes, theme, handleDrawerClose} = this.props;
+    const { classes, theme, handleDrawerClose, onRef } = this.props;
 
     return (
       <div className={classes.root}>
@@ -88,7 +88,7 @@ class SearchDrawer extends React.Component {
             </Toolbar>
           </AppBar>
           <Divider/>
-          <SearchPage />
+          <SearchPage onRef={onRef}/>
       </div>
     );
   }

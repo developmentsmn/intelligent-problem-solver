@@ -91,6 +91,17 @@ class LogicProof extends Component {
     open: false,
   };
 
+  constructor(props){
+    super(props);
+    console.log(this.searchBar);
+  }
+
+  onExplain = (query) => {
+    console.log(query);
+    this.setState({ open: true });
+    this.searchBar.fillSubmit(query)
+  }
+
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -133,7 +144,9 @@ class LogicProof extends Component {
         >
           <Carousel classes={{
             mobileStepper: open?classes.mobileStepperShift:classes.mobileStepper
-          }}/>
+          }}
+            onExplain={this.onExplain}
+          />
         </main>
         <Drawer
           variant="persistent"
@@ -143,7 +156,7 @@ class LogicProof extends Component {
             paper: classes.drawerPaper,
           }}
         >
-          <SearchDrawer handleDrawerClose={this.handleDrawerClose}/>
+          <SearchDrawer handleDrawerClose={this.handleDrawerClose} onRef={ref => (this.searchBar = ref)}/>
         </Drawer>
       </Page>
     );

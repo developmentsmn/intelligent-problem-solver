@@ -32,15 +32,25 @@ const styles = theme => ({
 class Search extends React.Component {
     constructor(props){
         super(props);
-
         this.state = {
             input: '',
             data: [
-                { topic : "A topic", content: "Some content" }
+                { topic : "Topic", content: "A set of items that share some common attributes that people care about." }
             ]
         }
-        
-        
+    }
+
+    componentDidMount() {
+        this.props.onRef(this)
+    }
+    
+    componentWillUnmount() {
+        this.props.onRef(undefined)
+    }
+
+    fillSubmit = (input) => {
+        this.setState({input});
+        this.onSubmit(input);
     }
 
     onChangeInput = (event) => {
@@ -118,8 +128,8 @@ class Search extends React.Component {
                     <Table styles={styles.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Topic</TableCell>
-                                <TableCell>Content</TableCell>
+                                <TableCell>Term</TableCell>
+                                <TableCell>Definition</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
