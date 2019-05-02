@@ -28,7 +28,7 @@ class ProblemTextField extends Component {
           key="ProblemTextField"
           label="Problem"
           multiline
-          rows="3"
+          rows="4"
           value={value}
           onChange={(e) => {
             var cursorStart = e.target.selectionStart;

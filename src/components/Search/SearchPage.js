@@ -16,6 +16,7 @@ const styles = theme => ({
     root: {
       width: '100%',
       padding: theme.spacing.unit * 3,
+      overflowY: "auto"
     },
     table: {
       minWidth: 50,
@@ -43,7 +44,7 @@ class Search extends React.Component {
     componentDidMount() {
         this.props.onRef(this)
     }
-    
+
     componentWillUnmount() {
         this.props.onRef(undefined)
     }
