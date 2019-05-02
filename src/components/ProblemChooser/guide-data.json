@@ -18,21 +18,6 @@
                         "Goal": "{C}"
                     }
                 ]
-            },
-            "Simplication":{
-                "Link": "",
-                "SampleProblems":
-                [
-                    {
-                        "Expression": "A \\[And] (A \\[Implies] B)"
-                    },
-                    {
-                        "Expression": "A \\[And] (A \\[Implies] B)"
-                    },
-                    {
-                        "Expression": "A \\[And] (A \\[Implies] B)"
-                    }
-                ]
             }
         }
     },

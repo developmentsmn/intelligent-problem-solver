@@ -8,7 +8,6 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import Guide from "./Guide";
-import SearchDrawer from "../Search/SearchDrawer";
 import TextField from "../ProblemInput/index";
 import { encodeWolfram } from "../../libs/wolfram/text-replace";
 
@@ -37,7 +36,6 @@ const styles = theme => ({
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       activeStep: 0,
       text: "",
@@ -111,6 +109,8 @@ class Carousel extends React.Component {
     const { text } = this.state;
     const { onExplain } = this.props;
     const submissionInfo = this.parseText(text);
+    if (submissionInfo === undefined)
+      return;
     const { topic, problemType, problemDefinition } = submissionInfo;
     const link = this.data[topic].ProblemTypes[problemType].Link;
 
@@ -136,7 +136,12 @@ class Carousel extends React.Component {
         import("../../components/SolutionDisplay/"+topic+"/"+problemType)
         .then(component => {
           const SolutionPanel = component.default;
-          tutorialSteps[1].content = <SolutionPanel onExplain={onExplain} dataString={res.Result}/>;
+          tutorialSteps[1].content = (
+            <SolutionPanel 
+              onExplain={onExplain} 
+              dataString={res.Result}
+            />
+          );
           this.setState({activeStep: 1,tutorialSteps});
         })
         .catch(err => {

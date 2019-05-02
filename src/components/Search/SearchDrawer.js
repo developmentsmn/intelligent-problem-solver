@@ -84,7 +84,7 @@ class SearchDrawer extends React.Component {
               <IconButton onClick={handleDrawerClose}>
                 {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
               </IconButton>
-              <h1>Dictionary</h1>
+              <h2 style={{marginLeft: "8px"}}>Dictionary</h2>
             </Toolbar>
           </AppBar>
           <Divider/>

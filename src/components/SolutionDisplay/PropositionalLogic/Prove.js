@@ -136,8 +136,7 @@ class VerticalLinearStepper extends React.Component {
                         Back
                       </Button>
                       <Button
-                        disabled={activeStep === 0}
-                        onClick={() => onExplain(item[2])}
+                        onClick={() => onExplain(item===""?"Tautology":item[2])}
                         className={classes.button}
                       >
                         Explain
