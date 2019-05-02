@@ -33,6 +33,11 @@ class VerticalLinearStepper extends React.Component {
   static propTypes = {
     classes: PropTypes.shape().isRequired,
     dataString: PropTypes.string.isRequired,
+    onExplain: PropTypes.string,
+  }
+
+  static defaultProps = {
+    onExplain: () => {}
   }
 
   constructor(props) {
@@ -109,7 +114,7 @@ class VerticalLinearStepper extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, onExplain } = this.props;
     const { activeStep, stepList } = this.state;
 
     return (
@@ -132,7 +137,7 @@ class VerticalLinearStepper extends React.Component {
                       </Button>
                       <Button
                         disabled={activeStep === 0}
-                        onClick={this.handleBack}
+                        onClick={() => onExplain(item[2])}
                         className={classes.button}
                       >
                         Explain

@@ -109,6 +109,7 @@ class Carousel extends React.Component {
 
   onSubmit = () => {
     const { text } = this.state;
+    const { onExplain } = this.props;
     const submissionInfo = this.parseText(text);
     const { topic, problemType, problemDefinition } = submissionInfo;
     const link = this.data[topic].ProblemTypes[problemType].Link;
@@ -135,7 +136,7 @@ class Carousel extends React.Component {
         import("../../components/SolutionDisplay/"+topic+"/"+problemType)
         .then(component => {
           const SolutionPanel = component.default;
-          tutorialSteps[1].content = <SolutionPanel dataString={res.Result}/>;
+          tutorialSteps[1].content = <SolutionPanel onExplain={onExplain} dataString={res.Result}/>;
           this.setState({activeStep: 1,tutorialSteps});
         })
         .catch(err => {
@@ -158,14 +159,13 @@ class Carousel extends React.Component {
 
     return (
       <div className={classes.root}>
-        <SearchDrawer/>
         <TextField 
           value={text} 
           onChange={this.handleTextChange}
           onSubmit={this.onSubmit}
         />
         <SwipeableViews
-          style={{ marginLeft: "30px", marginRight:"30px", minWidth:"700px"}}
+          style={{ width: "100%", minWidth:"700px"}}
           axis={theme.direction === "rtl" ? "x-reverse" : "x"}
           index={activeStep}
           onChangeIndex={this.handleStepChange}
