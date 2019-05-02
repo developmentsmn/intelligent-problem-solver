@@ -36,7 +36,34 @@
             }
         }
     },
-    "BinaryRelations":{
-        "URL": "https://banner2.kisspng.com/20180519/fjl/kisspng-mathematics-subset-symbol-binary-relation-sign-5affebfdf03a69.231163551526721533984.jpg"
+    "BinaryRelation":{
+        "URL": "https://banner2.kisspng.com/20180519/fjl/kisspng-mathematics-subset-symbol-binary-relation-sign-5affebfdf03a69.231163551526721533984.jpg",
+        "ProblemTypes":{
+            "PropertiesChecker":{
+                "Link": "https://www.wolframcloud.com/objects/450b4b3c-e291-41d4-b806-ede92177d21c",
+                "SampleProblems":[
+                    {
+                        "Property": "Reflexive",
+                        "Set": "{\"a\",\"b\",\"c\",\"d\",\"e\"}",
+                        "Relation": "{{\"a\",\"a\"}, {\"b\",\"b\"}, {\"c\",\"c\"}, {\"d\",\"d\"}, {\"e\",\"e\"},{\"a\",\"b\"}, {\"b\",\"a\"},{\"c\",\"d\"}, {\"d\",\"a\"}, {\"c\",\"b\"}, {\"d\",\"b\"}, {\"d\",\"e\"}}"
+                    },
+                    {
+                        "Property": "Symmetric",
+                        "Set": "{1,2,3,4,5}",
+                        "Relation": "{{1,1}, {2,2}, {3,3}, {4,4}, {5,5},{1,2}, {2,1},{3,4}, {4,1}, {3,2}, {4,2}, {4,5}}"
+                    },
+                    {
+                        "Property": "Antisymmetric",
+                        "Set": "{\"a\",\"b\",\"c\",\"d\",\"e\"}",
+                        "Relation": "{{\"a\",\"a\"}, {\"b\",\"b\"}, {\"c\",\"c\"}, {\"d\",\"d\"}, {\"e\",\"e\"},{\"a\",\"b\"}, {\"b\",\"a\"},{\"c\",\"d\"}, {\"d\",\"a\"}, {\"c\",\"b\"}, {\"d\",\"b\"}, {\"d\",\"e\"}}"
+                    },
+                    {
+                        "Property": "Transitive",
+                        "Set": "{\"a\",\"b\",\"c\",\"d\",\"e\"}",
+                        "Relation": "{{\"a\",\"a\"}, {\"b\",\"b\"}, {\"c\",\"c\"}, {\"d\",\"d\"}, {\"e\",\"e\"},{\"a\",\"b\"}, {\"b\",\"a\"},{\"c\",\"d\"}, {\"d\",\"a\"}, {\"c\",\"b\"}, {\"d\",\"b\"}, {\"d\",\"e\"}}"
+                    }
+                ]
+            }
+        }
     }
 }
