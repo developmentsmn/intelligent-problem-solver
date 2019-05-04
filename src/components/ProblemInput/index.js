@@ -25,7 +25,8 @@ class VirtualKeyboard extends Component {
   };
 
   componentDidUpdate(){
-    this.keyboard.setInput(this.props.value);
+    console.log(this.keyboard);
+    this.keyboard.keyboard.setInput(this.props.value);
   }
 
   onChange = (input) => {
