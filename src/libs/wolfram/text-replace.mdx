@@ -1,0 +1,93 @@
+---
+name: Text Parsers
+menu: Functions
+route: /libs/button
+---
+import { Playground, Props } from 'docz'
+import {decodeWolfram, encodeWolfram, formatProblemAsJSON} from './text-replace'
+
+# Wolfram Text Converter
+---
+
+
+## **Decoding Wolfram**
+
+This function converts a Wolfram string to a readable string.
+
+### *Parameters*
+
+* **text** - The string written in Wolfram syntax to be converted
+
+### *Return*
+
+A Javascript object as:
+* **text** - The converted string  
+* **lenOffset** - A number indicating how many characters the cursor has been moved with respect
+
+### *Example*
+
+```javascript
+const WolframString = "{{A, A \\[Implies] B}, {B}}";
+const { text, lenOffset } = decodeWolfram(WolframString);
+console.log("Converted text: " + text);
+console.log("New cursor position with respect to the original cursor: " + lenOffset);
+```
+The following text should be printed to the console:
+
+<Playground>
+    <div>
+        {(() => {
+            const WolframString = "{{A, A \\[Implies] B}, {B}}";
+            const { text, lenOffset } = decodeWolfram(WolframString);
+            return (
+                <code>
+                    Converted text: {text} <br/>
+                    New cursor position with respect to the original cursor: {lenOffset}
+                </code>
+            )
+        })()}
+    </div>
+</Playground>
+
+---
+
+
+## **Encoding Wolfram**
+
+This function converts a string to Wolfram string that can be understood by the Wolfram API.
+
+### *Parameters*
+
+* **text** - The string to be converted
+
+### *Return*
+
+A Javascript object as:
+* **text** - The converted string in Wolfram syntax 
+
+### *Example*
+
+```javascript
+const WolframString = "{{A, A ⇒ B}, {B}}";
+const text = encodeWolfram(WolframString);
+console.log("Converted text: " + text);
+```
+The following text should be printed to the console:
+
+<Playground>
+    <div>
+        {(() => {
+            const WolframString = "{{A, A ⇒ B}, {B}}";
+            const text = encodeWolfram(WolframString);
+            return (
+                <code>
+                    Converted text: {text} <br/>
+                </code>
+            )
+        })()}
+    </div>
+</Playground>
+
+---
+
+## **Format Problem as JSON**
