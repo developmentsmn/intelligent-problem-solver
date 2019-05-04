@@ -1,5 +1,5 @@
-import { connect } from "tls";
-import firebase from "./firebase";
+//import { connect } from "tls";
+//import firebase from "./firebase";
 
 const algoliasearch = require('algoliasearch');
 //const firebase = require('firebase');
