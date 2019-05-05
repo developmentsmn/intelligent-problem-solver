@@ -33,7 +33,7 @@ class VirtualKeyboard extends Component {
   }
 
   onChange = (input) => {
-    this.keyboard.setInput(input);
+    this.keyboard.keyboard.setInput(input);
     this.props.onChange(input);
   };
 
