@@ -22,3 +22,4 @@ pipelines:
           deployment: production
           script:
             - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD:master
+            - curl -X POST -d {} https://api.netlify.com/build_hooks/5cce28da17ca1f45b4fa9b8f
