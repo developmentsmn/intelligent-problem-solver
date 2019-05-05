@@ -1,12 +1,12 @@
 ---
 name: Text Parsers
 menu: Functions
-route: /libs/button
+route: /libs/wolfram
 ---
 import { Playground, Props } from 'docz'
 import {decodeWolfram, encodeWolfram, formatProblemAsJSON} from './text-replace'
 
-# Wolfram Text Converter
+# /libs/wolfram
 ---
 
 
@@ -14,9 +14,15 @@ import {decodeWolfram, encodeWolfram, formatProblemAsJSON} from './text-replace'
 
 This function converts a Wolfram string to a readable string.
 
+### *Prototype*
+
+```javascript
+const { text, lenOffset } = encodeWolfram(wolframString);
+``` 
+
 ### *Parameters*
 
-* **text** - The string written in Wolfram syntax to be converted
+* **wolframString** - The string written in Wolfram syntax to be converted
 
 ### *Return*
 
@@ -56,9 +62,15 @@ The following text should be printed to the console:
 
 This function converts a string to Wolfram string that can be understood by the Wolfram API.
 
+### *Prototype*
+
+```javascript
+const text = encodeWolfram(wolframString);
+``` 
+
 ### *Parameters*
 
-* **text** - The string to be converted
+* **wolframString** - The string to be converted
 
 ### *Return*
 
@@ -91,3 +103,48 @@ The following text should be printed to the console:
 ---
 
 ## **Format Problem as JSON**
+
+This function return the problem text in JSON format from the problem object.
+
+### *Prototype*
+
+```javascript
+const text = formatProblemAsJSON(problem);
+``` 
+
+### *Parameters*
+
+* **problem** - The problem object to be formatted.
+
+### *Return*
+
+* **text** - The resulted problem text in JSON format.
+
+### *Example*
+
+```javascript
+const problem = {
+    Hypothesis: "{A, A ⇒ B}",
+    Goal: "{B}"
+};
+const text = formatProblemAsJSON(problem);
+console.log(text);
+```
+The following text should be printed to the console:
+
+<Playground>
+    <div>
+        {(() => {
+            const problem = {
+                Hypothesis: "{A, A ⇒ B}",
+                Goal: "{B}"
+            };
+            const text = formatProblemAsJSON(problem);
+            return (
+                <code>
+                    {text} <br/>
+                </code>
+            )
+        })()}
+    </div>
+</Playground>
