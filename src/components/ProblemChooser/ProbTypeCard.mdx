@@ -1,0 +1,60 @@
+---
+name: Key-Value Card
+menu: Components
+route: /components/ProblemChooser/ProbTypeCard
+---
+
+import { Playground } from 'docz'
+import KeyValueCard from './ProbTypeCard'
+
+# Image Button Grid
+---
+### A grid of buttons with background images.
+### *Location*
+```json
+/components/ProblemChooser/ProbTypeCard
+```
+
+### *Demo*
+
+<Playground>
+    <div>
+    {
+        (() => {
+            const images = [
+                {
+                    url: "http://www.free-icons-download.net/images/implies-83546.png"
+                },
+                {
+                    title: "Title 2",
+                    url: "https://banner2.kisspng.com/20180519/fjl/kisspng-mathematics-subset-symbol-binary-relation-sign-5affebfdf03a69.231163551526721533984.jpg"
+                }
+            ];
+            return <KeyValueCard 
+                title="New Title" 
+                description={{
+                    key1: "value1",
+                    key2: "value2"
+                }}
+            />;
+        })()
+    }
+    </div>
+</Playground>
+
+---
+
+### *Properties*
+
+Name | Type | Default | Description
+--- | --- | --- | ---
+handler | func |  | This function will be called anytime a button is clicked.<br/>*Parameters*:<br/><ul><li>**index**: `number` The index of the clicked image in the original *images* array</li></ul>
+images | array |  | This array contains the images to be shown. Each element contains:<br/>*Attributes*:<br/><ul><li>**title**: `string` The title of the button to be shown</li><li>**url**: `string` The url of the background image</li></ul>
+
+### *CSS*
+
+Name | Description
+--- | ---
+root | Styles applied to the root element.
+image | Styles applied to each image.
+imageTitle | Styles applied to each button title.

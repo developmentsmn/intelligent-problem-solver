@@ -12,7 +12,7 @@ import {decodeWolfram} from "../../libs/wolfram/text-replace";
 class ProbTypeCard extends Component {
   static propTypes = {
     icon: PropTypes.string,
-    handlerType: PropTypes.func.isRequired,
+    handlerType: PropTypes.func,
     index: PropTypes.number.isRequired,
     description: PropTypes.shape().isRequired,
     title: PropTypes.string,
@@ -20,7 +20,8 @@ class ProbTypeCard extends Component {
 
   static defaultProps = {
     title: "",
-    icon: ""
+    icon: "",
+    handlerType: () => {}
   }
 
   getContent = () => {

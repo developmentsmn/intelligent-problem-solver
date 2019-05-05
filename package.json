@@ -10,6 +10,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
+    "docz-plugin-css": "^0.11.0",
     "eslint-config-airbnb": "^17.1.0",
     "firebase": "^5.9.0",
     "http2": "^3.3.7",

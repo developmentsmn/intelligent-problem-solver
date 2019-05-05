@@ -9,14 +9,17 @@ import "react-simple-keyboard/build/css/index.css";
 import "./index.style.css";
 
 class VirtualKeyboard extends Component {
+
   static propTypes = {
     classes: PropTypes.shape().isRequired,
+    onChange: PropTypes.func,
     onSubmit: PropTypes.func,
     value: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
     onSubmit: () => {},
+    onChange: () => {}
   }
 
   state = {
@@ -50,7 +53,7 @@ class VirtualKeyboard extends Component {
   };
 
   onChangeInput = (event) => {
-    this.keyboard.setInput(input);
+    this.keyboard.keyboard.setInput(input);
     const input = event.target.value;
     this.props.onChange(input);
   };
