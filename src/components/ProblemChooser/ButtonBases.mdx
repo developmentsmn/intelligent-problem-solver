@@ -1,0 +1,55 @@
+---
+name: Image Button Grid
+menu: Components
+route: /components/ProblemChooser/ButtonBases
+---
+
+import { Playground } from 'docz'
+import ButtonBases from './ButtonBases'
+
+# Image Button Grid
+---
+### A grid of buttons with background images.
+### *Location*
+```json
+/components/ProblemChooser/ButtonBases
+```
+
+### *Demo*
+
+<Playground>
+    <div>
+    {
+        (() => {
+            const images = [
+                {
+                    title: "Title 1",
+                    url: "http://www.free-icons-download.net/images/implies-83546.png"
+                },
+                {
+                    title: "Title 2",
+                    url: "https://banner2.kisspng.com/20180519/fjl/kisspng-mathematics-subset-symbol-binary-relation-sign-5affebfdf03a69.231163551526721533984.jpg"
+                }
+            ];
+            return <ButtonBases images={images}/>;
+        })()
+    }
+    </div>
+</Playground>
+
+---
+
+### *Properties*
+
+Name | Type | Default | Description
+--- | --- | --- | ---
+handler | func |  | This function will be called anytime a button is clicked.<br/>*Parameters*:<br/><ul><li>**index**: `number` The index of the clicked image in the original *images* array</li></ul>
+images | array |  | This array contains the images to be shown. Each element contains:<br/>*Attributes*:<br/><ul><li>**title**: `string` The title of the button to be shown</li><li>**url**: `string` The url of the background image</li></ul>
+
+### *CSS*
+
+Name | Description
+--- | ---
+root | Styles applied to the root element.
+image | Styles applied to each image.
+imageTitle | Styles applied to each button title.

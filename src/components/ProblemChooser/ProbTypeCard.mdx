@@ -1,0 +1,39 @@
+---
+name: Key-Value Card
+menu: Components
+route: /components/ProblemChooser/ProbTypeCard
+---
+
+import { Playground } from 'docz'
+import KeyValueCard from './ProbTypeCard'
+
+# Image Button Grid
+---
+### A card with title that shows general information in Key-Value pairs.
+### *Location*
+```json
+/components/ProblemChooser/ProbTypeCard
+```
+
+### *Demo*
+
+<Playground>
+    <KeyValueCard 
+        title="New Title" 
+        description={{
+            key1: "value1",
+            key2: "value2"
+        }}
+    />
+</Playground>
+
+---
+
+### *Properties*
+
+Name | Type | Default | Description
+--- | --- | --- | ---
+icon | image |  | The background image of the card.
+title | string |  | The title of the card.
+description | object |  | The object of key-values to show on the card.
+handlerType | func |  | This function is called whenever the card is clicked on.<br/>*Parameters*: an object of<br/><ul><li>**title**: `string` The title of the card.</li><li>**icon**: `image` The background image</li><li>**description**: `object` The info object (exactly the same as props.description)</li></ul>

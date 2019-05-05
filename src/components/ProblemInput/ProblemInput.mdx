@@ -1,0 +1,40 @@
+---
+name: Problem Textfield
+menu: Components
+route: /components/problem-textfield
+---
+
+import { Playground } from 'docz'
+import ProblemTextfield from './index.js'
+
+# Problem Textfield
+---
+### A Problem Textfield with a Virtual Keyboard specialized for problem input.
+### *Location*
+```json
+/components/ProblemInput/index
+```
+
+### *Demo*
+
+<Playground>
+    <ProblemTextfield/>
+</Playground>
+
+---
+
+### *Properties*
+
+Name | Type | Default | Description
+--- | --- | --- | ---
+value | string |  | This value is shown in the textfield. Anytime this prop updates, the textfield will show it.
+onChange | func |  | This function will be called anytime the textfield is changed due to incoming inputs.<br/>*Parameters*:<br/><ul><li>**text**: `string` The updated string</li></ul>
+onSubmit | func |  | This function will be called anytime the submit button is clicked.
+
+### *CSS*
+
+Name | Description
+--- | ---
+root | Styles applied to the root element.
+TextField | Styles applied to the textfield with the button.
+Keyboard | Styles applied to the keyboard element.
